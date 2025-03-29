@@ -1,5 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
+
 ?>
 <!DOCTYPE HTML>
 <html lang="PT-BR">
