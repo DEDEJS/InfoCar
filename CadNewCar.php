@@ -11,7 +11,7 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 <link rel="stylesheet" type="text/css" href="css/index.css">
 <link rel="stylesheet" type="text/css" href="css/menu.css">
 <link rel="stylesheet" type="text/css" href="css/FormCadastro.css">
-<script type="text/javascript" src="JAVASCRIPT/ValidaCadastro.js"></script>
+<script type="text/javascript" src="JAVASCRIPT/ValidaCadastroCarro.js"></script>
 
 </head>
 <body>
@@ -72,7 +72,10 @@ $ValidaCadastro -> ValidaModelos($Modelo);
   </select> 
 </div>
 <input type="submit" value="Cadastrar">
+<?php 
+$ValidaCadastro -> HeaderCadastro($Placa,$Marca,$Modelo);
 
+?>
 </form>
 </section>
 
