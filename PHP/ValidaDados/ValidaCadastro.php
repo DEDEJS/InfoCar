@@ -6,6 +6,7 @@ $Modelo = $GetCadastro -> GetModelo();
 class ValidaCadastro{
   private $MarcaSelecionada;
   private $PlacaValidada;
+  private $MarcaValidada;
   private $id;
   private $IdMarcaSelecionado;
   // arrays que vão alocar os modelos de carro
@@ -42,13 +43,17 @@ class ValidaCadastro{
             "Renault",
             "Volkswagen"
          );
-      
+      if($Marca == $ArrayMarca[0]){
+           echo "Escolha Uma Marca";
+      }else{
        foreach($ArrayMarca as $Marcas){
         if($Marcas === $Marca){
              $this-> MarcaSelecionada = $Marcas;
              break;
         }
        }
+       $this->MarcaValidada = true;
+        }
     }
 public function Modelos(){
       $this-> ArrayAudi  = array (
@@ -331,12 +336,24 @@ public function ImprimeValores(){
           $this->IdMarcaSelecionado = '10';
           echo $SelectMercedes;
          }
+      }else{
+        $this->IdMarcaSelecionado = false;
       }
       }
 public function ValidaModelos($Modelo){
       if($Modelo == "Outro Modelo"){
          echo "Escolha Um Modelo Válido";
       }
+}
+public function HeaderCadastro($Placa,$Marca,$Modelo){
+       if($this->PlacaValidada == true && $this->MarcaValidada == true && $this-> IdMarcaSelecionado != false){
+            session_start();
+            $_SESSION['placa'] = $Placa;
+            $_SESSION['marca'] = $Marca;
+            $_SESSION['modelo'] = $Modelo;
+            header("location:PHP/FunctionsDB.php/Crud/RegisterCar.php");
+            exit();
+       }
 }
  }
 $ValidaCadastro = new ValidaCadastro();

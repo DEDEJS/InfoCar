@@ -17,7 +17,7 @@ section.Cadastro form{
 section.Cadastro form h3, section.Cadastro form p{
     text-align: center;
 }
-section.Cadastro form input[type="text"]{
+section.Cadastro form input[type="text"], section.Cadastro form input[type="date"]{
     width: 70%;
     padding: 2%;
     font-size: larger;
@@ -42,7 +42,7 @@ section.Cadastro form .Modelo{
 display: none;
 }
 section.Cadastro form input[type="submit"]{
-    background-color: red;
+    background-color:#C0C0C0;
     border: none;
     border-radius: 5px;
     padding: 2%;
@@ -51,4 +51,7 @@ section.Cadastro form input[type="submit"]{
     cursor: pointer;
     width:50%;
     margin-left: 30%;
+}
+section.Cadastro .DivPeca{
+  display: none;
 }
