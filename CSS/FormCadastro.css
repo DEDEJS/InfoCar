@@ -14,10 +14,14 @@ section.Cadastro form{
     justify-content: center;
     width: 90%;
 }
+section.Cadastro form p{
+    color:red;
+}
 section.Cadastro form h3, section.Cadastro form p{
     text-align: center;
 }
-section.Cadastro form input[type="text"], section.Cadastro form input[type="date"]{
+section.Cadastro form input[type="text"], section.Cadastro form input[type="date"],
+ section.Cadastro form input[type="number"], section.Cadastro textarea{
     width: 70%;
     padding: 2%;
     font-size: larger;
@@ -36,7 +40,13 @@ section.Cadastro form select{
     margin-top: 2%;
     margin-bottom: 2%;
     margin-left: 15%;
-
+    text-align:center ;
+}
+section.Cadastro textarea{
+     height: 200px;
+    resize: none;
+    float: left;
+  
 }
 section.Cadastro form .Modelo{
 display: none;

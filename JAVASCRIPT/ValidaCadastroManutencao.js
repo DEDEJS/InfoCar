@@ -20,7 +20,7 @@ function ValidaTipoManutencao(){
     document.getElementById('ValorMaoObraDiv').style.display = 'block';
     document.getElementById('LocalFeitoManutencaoDiv').style.display = 'block';
     document.getElementById('DataDiv').style.display = 'block';
-    
+    document.getElementById('ObservacaoDiv').style.display = 'block';
    }
 }
 function ValidaformCadastroManutencao(){

@@ -21,11 +21,18 @@ class ValidaCadastro{
   private $ArrayKia;
   private $ArrayMercedes;
   public function ValidaPlaca($Placa){
-      if(strlen($Placa)<=0 && strlen($Placa) != 7){
+      if(strlen($Placa)<=6 || strlen($Placa) >=8){
              echo "Placa Inválida";
       }else{ 
          $this->PlacaValidada = true;
       }
+  }
+  public function PlacaValidado(){
+     if($this->PlacaValidada == true){
+          return true;
+     }else{
+      return false;
+     }
   }
     public function ValidaMarca($Marca){
         $ArrayMarca = array (
@@ -347,12 +354,11 @@ public function ValidaModelos($Modelo){
 }
 public function HeaderCadastro($Placa,$Marca,$Modelo){
        if($this->PlacaValidada == true && $this->MarcaValidada == true && $this-> IdMarcaSelecionado != false){
-            session_start();
-            $_SESSION['placa'] = $Placa;
-            $_SESSION['marca'] = $Marca;
-            $_SESSION['modelo'] = $Modelo;
-            header("location:PHP/FunctionsDB.php/Crud/RegisterCar.php");
-            exit();
+        include_once("PHP/Banco/banco.php");
+        include_once("PHP/FunctionsDB/Crud/Select.php");
+        $SelectCar -> SelectThePlateForRegistration($Conecta, $Placa);
+        include_once("PHP/FunctionsDB/Crud/Insert.php");
+       $Insert-> InsertCar($Conecta, $Placa,$Marca,$Modelo);
        }
 }
  }
