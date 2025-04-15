@@ -48,7 +48,7 @@ section.Cadastro textarea{
     float: left;
   
 }
-section.Cadastro form .Modelo{
+section.Cadastro form .Modelo, section.Cadastro form .MeuCarro, section.Cadastro form .Quilometragem {
 display: none;
 }
 section.Cadastro form input[type="submit"]{

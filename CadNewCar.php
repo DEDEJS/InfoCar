@@ -71,6 +71,20 @@ $ValidaCadastro -> ValidaModelos($Modelo);
    ?>
   </select> 
 </div>
+<div class="MeuCarro" id="MeuCarroDiv">
+   <h3>Meu Carro</h3>
+   <p class="error"><?php $ValidaCadastro -> ValidaMeuCarro($MeuCarro); ?></p>
+   <select name="MeuCarro" id="MeuCarro">
+      <option>---</option>
+      <option>Adicionar Ao Meu Carro</option>
+      <option>Não Adicionar Ao Meu Carro</option>
+   </select> 
+</div>
+<div class="Quilometragem" id="QuilometragemDiv">
+   <h3>Quilometragem</h3>
+   <p class="error"><?php $ValidaCadastro -> ValidaQuilometragem($Quilometragem); ?></p>
+   <input type="number" placeholder="Quilometragem" name="Quilometragem" id="Quilometragem">
+</div>
 <input type="submit" value="Cadastrar">
 <?php 
 $ValidaCadastro -> HeaderCadastro($Placa,$Marca,$Modelo);

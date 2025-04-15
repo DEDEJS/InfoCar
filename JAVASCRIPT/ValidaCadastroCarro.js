@@ -244,37 +244,61 @@ const VolkswagenModelos = [
 ];
 Marca = document.getElementById('Marca');
 ModeloSelect = document.getElementById('ModeloSelect'); 
+MeuCarroDiv = document.getElementById('MeuCarroDiv');
+QuilometragemDiv = document.getElementById('QuilometragemDiv');
 if(Marca.value == "---"){
     ModeloSelect.style.display = "none";
+    MeuCarroDiv.style.display = "none";
+    QuilometragemDiv.style.display = "none";
 }else if(Marca.value == "Audi"){
   ModeloSelect.style.display = "block";
+  MeuCarroDiv.style.display = "block";
+  QuilometragemDiv.style.display = "block";
   return AudiModelos
 }else if(Marca.value == "Bmw"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return BmwModelos;
 }else if(Marca.value == "Chevrolet"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return ChevroletModelos;
 }else if(Marca.value == "Fiat"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return FiatModelos;
 }else if(Marca.value == "Ford"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return FordModelos;
 }else if(Marca.value == "Honda"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return HondaModelos;
 }else if(Marca.value == "Hyundai"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return HyundaiModelos;
 }else if(Marca.value == "Jeep"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return JeepModelos;
 }else if(Marca.value == "Kia"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return KiaModelos;
 }else if(Marca.value == "Mercedes-Bens"){
     ModeloSelect.style.display = "block";
+    MeuCarroDiv.style.display = "block";
+    QuilometragemDiv.style.display = "block";
     return MercedesModelos;
 }
 }
