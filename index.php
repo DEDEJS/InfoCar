@@ -52,9 +52,23 @@ $Search = $ValidaCadastro -> ValidaSearch();
 </form>
 </div>
 </header>
-<?php 
-$SelectCar -> SearchMarca($Search, $Marca, $Conecta); 
-
-?>
+<?php $SelectCar -> SearchMarca($Search, $Marca, $Conecta); ?>
+<main>
+ <div class="MainTop">
+    <h1>InfoCar</h1>
+    <p>Sistema de controle de manutenções</p>
+</div>
+</main>
+<section>
+   <div class="index">
+    <h1>Bem-vindo</h1>
+    <p>Escolha Uma Dessas Opções Para Começar</p>
+   <div class="button"> 
+    <button><a href="CadastrarNovoCarro.php">Cadastrar Carro</a></button>
+    <button><a href="Manutencao.php">Ver Carros Cadastrados</a></button>
+    <button><a href="MeuCarro.php">Meu Carro</a></button>
+   </div>
+    </div>
+</section>
 </body>
 </html>
