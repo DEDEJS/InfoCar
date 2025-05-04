@@ -14,8 +14,6 @@ include_once("PHP/Banco/Banco.php");
 <link rel="stylesheet" type="text/css" href="assets/css/index.css">
 <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
 <link rel="stylesheet" type="text/css" href="assets/css/tabela.css">
-<link rel="stylesheet" type="text/css" href="assets/css/Search.css">
-
 </head>
 <body>
 <nav>
@@ -26,33 +24,6 @@ include_once("PHP/Banco/Banco.php");
   <li><a href="Manutencao.php" title="Manutenção" >Manutenção</a></li>
  </ul>
 </nav>
-<header>
-<div class="Search">
-    <h3>Procurar Por Marca</h3>
-<form action="#" method="POST">
-<?php $ValidaCadastro -> ValidaMarca($Marca);
-$Search = $ValidaCadastro -> ValidaSearch(); 
-?>
-<select name="Marca" id="Marca" onclick="return ValidaformCadastro();">
-    <option>---</option>
-    <option>Audi</option>
-    <option>Bmw</option>
-    <option>Chevrolet</option>
-    <option>Fiat</option>
-    <option>Ford</option>
-    <option>Honda</option>
-    <option>Hyundai</option>
-    <option>Jeep</option>
-    <option>Kia</option>
-    <option>Mercedes-Bens</option>
-    <option>Renault</option>
-    <option>Volkswagen</option>
- </select>
-     <input type="submit" value="Procurar">
-</form>
-</div>
-</header>
-<?php $SelectCar -> SearchMarca($Search, $Marca, $Conecta); ?>
 <main>
  <div class="MainTop">
     <h1>InfoCar</h1>
