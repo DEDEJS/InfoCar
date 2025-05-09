@@ -4,7 +4,6 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 include_once("PHP/FunctionsDB/Crud/Select.php");
 include_once("PHP/Banco/Banco.php");
 ?>
-
 <!DOCTYPE HTML>
 <html lang="PT-BR">
 <head>
@@ -34,11 +33,11 @@ include_once("PHP/Banco/Banco.php");
    <div class="index">
     <h1>Bem-vindo</h1>
     <p>Escolha Uma Dessas Opções Para Começar</p>
-   <div class="button"> 
+    <div class="button"> 
     <button><a href="CadastrarNovoCarro.php">Cadastrar Carro</a></button>
     <button><a href="Manutencao.php">Ver Carros Cadastrados</a></button>
     <button><a href="MeuCarro.php">Meu Carro</a></button>
-   </div>
+    </div>
     </div>
 </section>
 </body>

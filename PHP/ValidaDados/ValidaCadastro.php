@@ -1,5 +1,6 @@
 <?php
 include_once("PHP/Get/GetCadastro.php");
+
 $Placa = $GetCadastro -> GetPlaca();
 $Marca = $GetCadastro -> GetMarca();
 $Modelo = $GetCadastro -> GetModelo();
@@ -26,9 +27,12 @@ class ValidaCadastro{
   private $ArrayKia;
   private $ArrayMercedes;
   public function ValidaPlaca($Placa){
+    $Placa = strtoupper(str_replace(['-', ' '], '', $Placa));
       if(strlen($Placa)<=6 || strlen($Placa) >=8){
              echo "Placa Inválida";
-      }else{ 
+      }else  if (!preg_match('/^[A-Z]{3}[0-9]{4}$/', $Placa) &&  !preg_match('/^[A-Z]{3}[0-9][A-Z][0-9]{2}$/', $Placa)) {
+        echo "Placa Inválida";
+    } else{ 
          $this->PlacaValidada = true;
       }
   }
@@ -379,7 +383,7 @@ public function Modelos(){
      public function ValidaQuilometragem($Quilometragem){
         if(!is_numeric($Quilometragem)){
             echo "Quilometragem Inválida";
-        }else if(strlen($Quilometragem)>=7){
+        }else if(strlen($Quilometragem)>=8){
         echo "Quilometragem Inválida";
         }else{
           return $this-> QuilometragemValidado = true;

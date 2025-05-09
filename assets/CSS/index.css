@@ -20,6 +20,7 @@ main {
     background-color: rgb(0, 130, 216);
     border: none;
     padding:2%;
+    margin-top: 1%;
 }
 main .MainTop{
     color:white;
@@ -27,6 +28,15 @@ main .MainTop{
 }
 main .MainTop p{
     margin-top: 1%;
+}
+section .SectionManutencao{
+    text-align: center;
+}
+section .SectionManutencao h2{
+    margin-top: 4%;
+}
+section .SectionManutencao p{
+    margin-top: 0.5%;
 }
 section .index{
     margin-top:2%;
@@ -42,7 +52,7 @@ section .index p{
 section .index .button{
     display: inline-block;
 }
-section .index button{
+section .index button, section .SectionManutencao button{
     margin-top:3%;
     padding: 3%;
     border: none;

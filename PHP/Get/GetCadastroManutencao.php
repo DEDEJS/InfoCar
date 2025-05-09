@@ -10,6 +10,16 @@
          return htmlspecialchars($_POST['Peca']);
         }
     }
+    public function GetPecaCodigo(){
+        if(isset($_POST['PecaCodigo'])){
+         return htmlspecialchars($_POST['PecaCodigo']);
+        }
+    }
+    public function GetFabricanteCodigo(){
+        if(isset($_POST['PecaFabricante'])){
+         return htmlspecialchars($_POST['PecaFabricante']);
+        }
+    }
     public function GetValorPeca(){
         if(isset($_POST['ValorPeca'])){
             return htmlspecialchars($_POST['ValorPeca']);
@@ -38,6 +48,9 @@
  }
  $GetCadastroManutencao = new GetCadastroManutencao();
  $GetValuePecaManutencao = $GetCadastroManutencao -> GetPeca();
+ $GetValuePecaCodigoManutencao = $GetCadastroManutencao -> GetPecaCodigo();
+ $GetValuePecaFabricanteManutencao = $GetCadastroManutencao -> GetFabricanteCodigo();
+
  $GetValueValorManutencao = $GetCadastroManutencao -> GetValorPeca();
  $GetValueMaoDeObraManutencao = $GetCadastroManutencao -> GetMaoDeObra();
  $GetValueLocalManutencao = $GetCadastroManutencao -> GetLocalManutencao();

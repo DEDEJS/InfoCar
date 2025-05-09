@@ -1,0 +1,67 @@
+section.Cadastro{
+    width: 60%;
+    border-radius: 5px;
+    margin: 1% 0% 0% 19%;
+    border: none;
+    padding:2%;
+    display: flex;
+    justify-content: center;
+    background-color: aqua;
+}
+section.Cadastro form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+}
+section.Cadastro form p{
+    color:red;
+}
+section.Cadastro form h3, section.Cadastro form p{
+    text-align: center;
+}
+section.Cadastro form input[type="text"], section.Cadastro form input[type="date"],
+ section.Cadastro form input[type="number"], section.Cadastro textarea{
+    width: 70%;
+    padding: 2%;
+    font-size: larger;
+    border-radius: 5px;
+    border:none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 15%;
+}
+section.Cadastro form select{
+    width: 74.5%;
+    padding: 2%;
+    font-size: larger;
+    border-radius: 5px;
+    border:none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 15%;
+    text-align:center ;
+}
+section.Cadastro textarea{
+     height: 200px;
+    resize: none;
+    float: left;
+  
+}
+section.Cadastro form .Modelo, section.Cadastro form .MeuCarro, section.Cadastro form .Quilometragem {
+display: none;
+}
+section.Cadastro form input[type="submit"]{
+    background-color:#C0C0C0;
+    border: none;
+    border-radius: 5px;
+    padding: 2%;
+    margin-top: 2%;
+    font-size: larger;
+    cursor: pointer;
+    width:50%;
+    margin-left: 30%;
+}
+section.Cadastro .DivPeca{
+  display: none;
+}

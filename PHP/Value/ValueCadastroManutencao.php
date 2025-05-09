@@ -3,6 +3,12 @@
     public function ValuePeca($GetValuePecaManutencao){
         echo htmlspecialchars($GetValuePecaManutencao);
     }
+    public function ValueCodigoPeca($GetValuePecaCodigoManutencao){
+        echo htmlspecialchars($GetValuePecaCodigoManutencao);
+    }
+    public function ValueFabricantePeca($GetValuePecaFabricanteManutencao){
+        echo htmlspecialchars($GetValuePecaFabricanteManutencao);
+    }
     public function ValueValorManutencao($GetValueValorManutencao){
         echo htmlspecialchars($GetValueValorManutencao);
     }

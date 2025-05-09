@@ -1,5 +1,5 @@
 <?php
-ini_set('default_charset','UTF-8');
+/*ini_set('default_charset','UTF-8');
 session_start();
 include_once("../../Banco/Banco.php");
 class VerificaCadastro{
@@ -30,7 +30,7 @@ $VerificaCadastro = new VerificaCadastro();
 $VerificaCadastro -> VeficicaSessionCadastro();
 $VerificaCadastro -> VerificaSeExistePlacaNoDB($Conecta);
 
-/*
+
 if(isset($_SESSION['placa']) && isset($_SESSION['marca']) && isset($_SESSION['modelo'])){
 include_once("Select.php");
 if($SelectCar-> SelectThePlateForRegistration($Conecta) == true){

@@ -16,7 +16,7 @@ class SelectCar{
      <th><h3 title="Marca">Marca</h3></th>
      <th><h3 title="Modelo">Modelo</h3></th>
      <th>Quilometragem</a></th>
-     <th><a href="PHP/FunctionsDB/Crud/Delete.php/Delete.php?Car='.$QueryVerificaMeuCarroSelecionado['Car_Id'].'" title="Ver Mais" target="_blank">Excluir</a></th>
+     <th><a href="ManutencaoCarro.php?Car='.$QueryVerificaMeuCarroSelecionado['Car_Id'].'" title="Ver Mais" target="_blank">Ver Mais</a></th>
  </tr>
     <tr>
      <td>'.$QueryVerificaMeuCarroSelecionado['Placa'].'</td>
@@ -112,27 +112,28 @@ class SelectMaintenance{
            return  $this-> IdURlCar = $_GET['Car'];
         }else if(isset($_GET['NaoExiste']) && is_numeric($_GET['NaoExiste'])){
            return $this-> IdURlCar = $_GET['NaoExiste'];
+        }else if(isset($_GET['IdNovaManutencao']) && is_numeric($_GET['IdNovaManutencao'])){
+         return $this-> IdURlCar = $_GET['IdNovaManutencao'];
         }else{
-            die("Error, id Get Car Não Existe");         
+          //  die("Error, id Get Car Não Existe");         
         }
      }
      public function VerificaSeManutencaoExiste($Conecta){
          $IdCar =  $this-> IdURlCar;
+         if($IdCar != null){
          $ConsultaSeExisteId = $Conecta->query("SELECT Id_Car FROM maintenance WHERE Id_Car = '$IdCar'");
         while(!$query = $ConsultaSeExisteId->fetch(PDO::FETCH_ASSOC)){
              // Manda para uma página para cadastrar uma nova manutenção com esse Id
              if(!isset($_GET['NaoExiste'])){
-
              header("location:CadastraManutencao.php?NaoExiste=".$IdCar);
              exit;
-
               }
              break;
           } 
+           }
      }
     public function VerificaSeExisteIdParaCadastrar($Conecta){
         $IdCar =  $this-> IdURlCar;
-
     }
     public function SelectIdMaintenance($Conecta){
         // Verifica  Se Existe Id na tabela maintenance e se é igual a o do id na tabela cars, e se é igual ao da url
@@ -166,22 +167,24 @@ class SelectMaintenance{
      </table>
    
      </section>
-     <main>
-      <div>
-      <h3>Tipo De Manutenção: '.$SelectLinhaIdMaintenance['Tipo_De_Manutencao'].'</h3>
-         <h3>Observação:</h3>
+     <section>
+      <div class="SectionManutencao">
+      <h2>Tipo De Manutenção</h2>
+      <p>'.$SelectLinhaIdMaintenance['Tipo_De_Manutencao'].'</p>
+      <h2>Observação:</h2>
        <p>'.$SelectLinhaIdMaintenance['Observacao'].'</p>
        <div>
-       <button>Gerar PDF</button>
-       <button><a href="PHP/FunctionsDB/Crud/Delete.php?IdManutencao='.$SelectLinhaIdMaintenance['id_manutencao'].'">Excluir Manutenção</a></button>
-       </div>
+      <div class="button"> 
+        <button>Gerar PDF</button>
+        <button><a href="PHP/FunctionsDB/Crud/Delete.php?IdManutencao='.$SelectLinhaIdMaintenance['id_manutencao'].'">Excluir Manutenção</a></button>
+       </div> 
       </div>
-      </main>
-                ';
+      </div>
+      </section>
+              ';
             }
        }
     }
-
 }
 $SelectCar = new SelectCar(); 
 $SelectMaintenance = new SelectMaintenance();

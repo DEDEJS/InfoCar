@@ -22,12 +22,14 @@ class InsertNewCar{
  
 }
 class InsertNewMaintenance{
-    public function InsertMaintenanceDB($Conecta,$IdCar ,$Tipo, $Peca, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao){
-        $QueryInsertMaintenance = $Conecta->prepare('INSERT INTO maintenance (Id_Car, Peca, Valor_Peca, Valor_Mao_De_Obra, Data, Tipo_De_Manutencao, Local, Observacao) 
-        VALUES(:Id_Car, :Peca, :Valor_Peca, :Valor_Mao_De_Obra, :Data, :Tipo_De_Manutencao, :Local, :Observacao)');
+    public function InsertMaintenanceDB($Conecta,$IdCar ,$Tipo, $Peca,  $PecaCodigo, $FabricantePecaCodigo, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao){
+        $QueryInsertMaintenance = $Conecta->prepare('INSERT INTO maintenance (Id_Car, Peca, CodigoPeca, FabricantePeca, Valor_Peca, Valor_Mao_De_Obra, Data, Tipo_De_Manutencao, Local, Observacao) 
+        VALUES(:Id_Car, :Peca, :CodigoPeca, :FabricantePeca, :Valor_Peca, :Valor_Mao_De_Obra, :Data, :Tipo_De_Manutencao, :Local, :Observacao)');
          $QueryInsertMaintenance->execute(array(
             ':Id_Car' => $IdCar,
              ':Peca' => $Peca,
+             ':CodigoPeca' => $PecaCodigo,
+             ':FabricantePeca' => $FabricantePecaCodigo,
              ':Valor_Peca' => $ValorPeca,
              ':Valor_Mao_De_Obra' => $MaoDeObra,
              ':Data' => $Data,

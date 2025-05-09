@@ -2,6 +2,8 @@
 include_once("PHP/Get/GetCadastroManutencao.php");
 $Tipo = $GetCadastroManutencao ->GetTipoManutencao();
 $Peca = $GetCadastroManutencao ->GetPeca();
+$PecaCodigo = $GetCadastroManutencao ->GetPecaCodigo();
+$FabricantePecaCodigo = $GetCadastroManutencao ->GetFabricanteCodigo();
 $ValorPeca = $GetCadastroManutencao ->GetValorPeca();
 $MaoDeObra = $GetCadastroManutencao ->GetMaoDeObra();
 $LocalManutencao = $GetCadastroManutencao ->GetLocalManutencao();
@@ -10,6 +12,8 @@ $Observacao = $GetCadastroManutencao ->GetObservacao();
 class ValidaCadastroManutencao{
     private $TipoValidado;
     private $PecaValidado;
+    private $PecaCodigoValidado;
+    private $FabricanteCodigoValidado;
     private $ValorPeca;
     private $MaoDeObraValidado;
     private $LocalManutencaoValidado;
@@ -49,9 +53,29 @@ class ValidaCadastroManutencao{
         return false;
       }
     }
+    public function ValidaPecaCodigoManutencao($PecaCodigo){
+       if(strlen($PecaCodigo)<=0){
+          echo "Campo Vázio";
+       }else if(!preg_match('/^[A-Z0-9\-_ ]+$/i',$PecaCodigo)){
+          echo "Inválido";
+       }else{
+        $this-> PecaCodigoValidado = true;
+       }
+    }
+    public function ValidaFabricantePecaManutencao($FabricantePecaCodigo){
+      if(strlen($FabricantePecaCodigo) <= 0){
+         echo "Campo Vázio";
+      }else if(!preg_match('/^[A-Z0-9\- ]+$/i',$FabricantePecaCodigo)){
+        echo "Código Inválido, não adicione caracteres especiais";
+      }else{
+        $this-> FabricanteCodigoValidado = true;
+      }
+    }
     public function ValidaValorPeca($ValorPeca){
         if(strlen($ValorPeca)<= 0){
            echo "Campo Vázio";
+        }else if(!preg_match('/^R?\$?\s?(\d{1,3}(\.\d{3})*|\d+)(,\d{1,2})?$/', $ValorPeca)){
+           echo "Campo Inválido";
         }else{
           $this->ValorPeca = true;
         }
@@ -68,7 +92,9 @@ class ValidaCadastroManutencao{
          echo "Campo Vázio";
       }else if(strlen($MaoDeObra) >= 51){
         echo "Campo Muito Grande";
-      }else{
+      }else if(!preg_match('/^R?\$?\s?(\d{1,3}(\.\d{3})*|\d+)(,\d{1,2})?$/', $MaoDeObra)){
+        echo "Campo Inválido";
+     }else{
         $this->MaoDeObraValidado = true;
       }
     }
@@ -91,6 +117,8 @@ class ValidaCadastroManutencao{
     public function ValidaDataManutencao($Data){
         if(strlen($Data) <= 0){
            echo "Campo Vázio";
+        }else if($Data > date('Y-m-d')){
+          echo "A data de manutenção não pode ser maior que a data atual";
         }else{
             $this->DataManutencaoValidado = true;       
         }
@@ -112,17 +140,16 @@ class ValidaCadastroManutencao{
         $this-> ObservacaoManutencaoValidado = true;
        }
     }
-    public function CadastraManutencao($Tipo, $Peca, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao){
+    public function CadastraManutencao($Tipo, $Peca, $PecaCodigo, $FabricantePecaCodigo, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao){
       include_once("PHP/Banco/banco.php");
       include_once("PHP/FunctionsDB/Crud/Select.php");
       $SelectMaintenance -> VerificaSeManutencaoExiste($Conecta);
-           if($this-> TipoValidado == true && $this-> PecaValidado == true && $this->ValorPeca == true &&
-            $this->MaoDeObraValidado == true && $this->LocalManutencaoValidado  == true &&
+           if($this-> TipoValidado == true && $this-> PecaValidado == true && $this->PecaCodigoValidado == true 
+            && $this-> FabricanteCodigoValidado == true && $this->ValorPeca == true && $this->MaoDeObraValidado == true && $this->LocalManutencaoValidado  == true &&
              $this-> DataManutencaoValidado  == true && $this-> ObservacaoManutencaoValidado == true ){
-                echo "Cadastrar";
                 $IdCar = $SelectMaintenance -> GetIdUrl();
                 include_once("PHP/FunctionsDB/Crud/Insert.php");
-                $InsertMaintence ->InsertMaintenanceDB($Conecta,$IdCar ,$Tipo, $Peca, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao);
+                $InsertMaintence ->InsertMaintenanceDB($Conecta,$IdCar ,$Tipo, $Peca,  $PecaCodigo, $FabricantePecaCodigo, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao);
               } else{
             echo "Termine De Preencher Os Dados";
            }
