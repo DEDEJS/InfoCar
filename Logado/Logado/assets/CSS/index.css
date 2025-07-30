@@ -1,0 +1,64 @@
+*{
+    font-family: 'arial', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    padding:0;
+    margin:0;
+    text-decoration: none;
+    list-style: none;
+}
+header{
+    margin-top: 1%;
+    text-align: center;
+    font-size: larger;
+    padding: 2%;
+}
+body {
+    overflow-x: hidden;
+  }
+main {
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgb(0, 130, 216);
+    border: none;
+    padding:2%;
+    margin-top: 0.2%;
+}
+main .MainTop{
+    color:white;
+    text-align: center;
+}
+main .MainTop p{
+    margin-top: 0.2%;
+}
+section .SectionManutencao{
+    text-align: center;
+}
+section .SectionManutencao h2{
+    margin-top: 4%;
+}
+section .SectionManutencao p{
+    margin-top: 0.5%;
+}
+section .index{
+    margin-top:2%;
+    text-align: center;
+}
+section .index h1{
+    color:rgb(3, 3, 252);
+}
+section .index p{
+    margin-top: 1%;
+    color:rgb(70, 70, 172);
+}
+section .index .button{
+    display: inline-block;
+}
+section .index button, section .SectionManutencao button{
+    margin-top:3%;
+    padding: 3%;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(154, 154, 196);
+    color:black;
+    font-size: larger;
+    width: 93%;
+}
