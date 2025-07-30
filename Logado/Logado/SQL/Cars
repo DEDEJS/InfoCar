@@ -1,1 +1,0 @@
-CREATE TABLE `infocar`.`cars` (`Id_Car` INT(10) NOT NULL AUTO_INCREMENT , `Placa` VARCHAR(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `Marca` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , `Modelo` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , PRIMARY KEY (`Id_Car`)) ENGINE = InnoDB;
