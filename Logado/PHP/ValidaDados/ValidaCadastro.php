@@ -1,11 +1,11 @@
 <?php
-include_once("PHP/Get/GetCadastro.php");
+include_once("PHP/Get/GetDadosInput.php");
 
-$Placa = $GetCadastro -> GetPlaca();
-$Marca = $GetCadastro -> GetMarca();
-$Modelo = $GetCadastro -> GetModelo();
-$MeuCarro = $GetCadastro -> GetMeuCarro();
-$Quilometragem = $GetCadastro -> GetQuilometragem();
+$Placa = $GetDadosInput -> GetPlaca();
+$Marca = $GetDadosInput -> GetMarca();
+$Modelo = $GetDadosInput -> GetModelo();
+$MeuCarro = $GetDadosInput -> GetMeuCarro();
+$Quilometragem = $GetDadosInput -> GetQuilometragem();
 class ValidaCadastro{
   private $MarcaSelecionada;
   private $PlacaValidada;

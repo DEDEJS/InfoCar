@@ -1,7 +1,17 @@
 <?php
-class AlteraDados{
-         public function AlterarDados($Alterar,$IdAlterarManutencao,$IdAlterarCarro,$Conecta,$ValidaCadastroManutencao,$ValidaCadastro,$Placa,$Peca,$ValorPeca,$MaoDeObra,$Data,$Quilometragem){
+
+class AlteraDados  extends GetDados{
+   public $Dados;
+  public function __construct() {
+       return $this->Dados = new GetDadosInput(); 
+    }
+         public function AlterarDados($Alterar,$IdAlterarManutencao,$IdAlterarCarro,$Conecta,$ValidaCadastroManutencao,$ValidaCadastro){
           // Verificar se existe na tabela antes de alterar o valor dela
+           $Placa = $this->Dados -> GetPlaca();
+        $Peca = $this->Dados -> GetPeca();
+        $ValorPeca = $this -> GetValorPeca();
+        $MaoDeObra = $this->Dados -> GetMaoDeObra();
+        $Data = $this->Dados -> GetData();
           switch($Alterar){
             case "Placa":
              if($ValidaCadastro -> PlacaValidado() == true){

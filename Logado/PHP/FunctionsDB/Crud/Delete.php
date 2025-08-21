@@ -1,6 +1,5 @@
 <?php
 include_once("../../Banco/Banco.php");
-// Revisar Esse código inteiro 21/04/2025
 class ExcluirManutencao{
     public $Excluir;
     public $ExcluirId;

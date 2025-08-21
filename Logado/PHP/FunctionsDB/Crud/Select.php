@@ -5,71 +5,80 @@ class SelectCar{
    private $MeuCarroselecionado;
    public function MostraCarroSelecionado($Conecta){
       if($this->Search == false){  
-    $VerificaMeuCarroSelecionado = $Conecta->Query("SELECT Car_Id, Placa, Marca, Modelo, MeuCarro, Quilometragem FROM cars WHERE MeuCarro = 'A' LIMIT 5");
-    while($QueryVerificaMeuCarroSelecionado = $VerificaMeuCarroSelecionado->fetch(PDO::FETCH_ASSOC)){
+      $VerificaMeuCarroSelecionado = $Conecta->Query("SELECT Car_Id, Placa, Marca, Modelo, MeuCarro, Quilometragem FROM cars WHERE MeuCarro = 'A' LIMIT 5");
+      while($QueryVerificaMeuCarroSelecionado = $VerificaMeuCarroSelecionado->fetch(PDO::FETCH_ASSOC)){
           // A = sim, N = não
           echo '
           <section>
-<table class="Tabela">
- <tr>
-     <th><h3 title="Placa">Placa</h3></th>        
-     <th><h3 title="Marca">Marca</h3></th>
-     <th><h3 title="Modelo">Modelo</h3></th>
-     <th>Quilometragem</a></th>
-     <th><a href="ManutencaoCarro.php?Car='.$QueryVerificaMeuCarroSelecionado['Car_Id'].'" title="Ver Mais" target="_blank">Ver Mais</a></th>
- </tr>
-    <tr>
-     <td>'.$QueryVerificaMeuCarroSelecionado['Placa'].'</td>
-     <td>'.$QueryVerificaMeuCarroSelecionado['Marca'].'</td>
-     <td>'.$QueryVerificaMeuCarroSelecionado['Modelo'].'</td>
-     <td>'.$QueryVerificaMeuCarroSelecionado['Quilometragem'].'<td>
-  </tr>
- </table>
- </section>
-          ';  
-          $this->MeuCarroselecionado = true;
-    }
-   }else{
-      $this->MeuCarroselecionado = true;
-   }
-   }
-   public function VerificaSeExisteCarroSelecionado(){
-      if($this->MeuCarroselecionado != true){
-         echo "Não Existe, Carro Favorito, <a>Deseja Cadastrar Um Novo Carro?</a>";
+            <table class="Tabela">
+            <tr>
+               <th><h3 title="Placa">Placa</h3></th>        
+               <th><h3 title="Marca">Marca</h3></th>
+               <th><h3 title="Modelo">Modelo</h3></th>
+               <th>Quilometragem</a></th>
+               <th><a href="ManutencaoCarro.php?Car='.$QueryVerificaMeuCarroSelecionado['Car_Id'].'" title="Ver Mais" target="_blank">Ver Mais</a></th>
+            </tr>
+               <tr>
+               <td>'.$QueryVerificaMeuCarroSelecionado['Placa'].'</td>
+               <td>'.$QueryVerificaMeuCarroSelecionado['Marca'].'</td>
+               <td>'.$QueryVerificaMeuCarroSelecionado['Modelo'].'</td>
+               <td>'.$QueryVerificaMeuCarroSelecionado['Quilometragem'].'<td>
+            </tr>
+            </table>
+            </section>
+                     ';  
+                     $this->MeuCarroselecionado = true;
+               }
+               }else{
+                  $this->MeuCarroselecionado = true;
+               }
+               }
+               public function VerificaSeExisteCarroSelecionado(){
+                  if($this->MeuCarroselecionado != true){
+                     echo "Não Existe, Carro Favorito, <a href='http://localhost/Projects/InfoCar/Logado/CadastrarNovoCarro.php'>Deseja Cadastrar Um Novo Carro?</a>";
+                  }
+               }
+               public function SearchMarca($Search, $Marca, $Conecta){
+                     if($Search == true){
+                        $this-> Search = true;
+                        $QuerySearchCars = $Conecta->query("SELECT Car_Id,Placa, Marca, Modelo FROM cars WHERE Marca = '$Marca'");
+                        while($SearchQuery = $QuerySearchCars->fetch(PDO::FETCH_ASSOC)){
+                           echo '
+            <section>
+            <table class="Tabela">
+            <tr>
+               <th><h3 title="Placa">Placa</h3></th>        
+               <th><h3 title="Marca">Marca</h3></th>
+               <th><h3 title="Modelo">Modelo</h3></th>
+               <th><a href="ManutencaoCarro.php?Car='.$SearchQuery['Car_Id'].'" title="Ver Mais" target="_blank">Manutenção</a></th>
+               <th>
+               <a href="PHP/FunctionsDB/Crud/Delete.php/Delete.php?Car='.$SearchQuery['Car_Id'].'" title="Excluir" target="_blank">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-trash">
+               <polyline points="3 6 5 6 21 6" />
+               <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+               <path d="M10 11v6" />
+               <path d="M14 11v6" />
+               <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+               </svg>
+               </a>
+               </th>
+            </tr>
+               <tr>
+               <td>'.$SearchQuery['Placa'].'</td>
+               <td>'.$SearchQuery['Marca'].'</td>
+               <td>'.$SearchQuery['Modelo'].'</td>
+            </tr>
+            </table>
+      </section>';
+      $this-> Marca = true;
+      break;
       }
-   }
-    public function SearchMarca($Search, $Marca, $Conecta){
-         if($Search == true){
-            $this-> Search = true;
-             $QuerySearchCars = $Conecta->query("SELECT Car_Id,Placa, Marca, Modelo FROM cars WHERE Marca = '$Marca'");
-             while($SearchQuery = $QuerySearchCars->fetch(PDO::FETCH_ASSOC)){
-                echo '
-<section>
-<table class="Tabela">
- <tr>
-     <th><h3 title="Placa">Placa</h3></th>        
-     <th><h3 title="Marca">Marca</h3></th>
-     <th><h3 title="Modelo">Modelo</h3></th>
-     <th><a href="ManutencaoCarro.php?Car='.$SearchQuery['Car_Id'].'" title="Ver Mais" target="_blank">Manutenção</a></th>
-     <th><a href="PHP/FunctionsDB/Crud/Delete.php/Delete.php?Car='.$SearchQuery['Car_Id'].'" title="Ver Mais" target="_blank">Excluir</a></th>
- </tr>
-    <tr>
-     <td>'.$SearchQuery['Placa'].'</td>
-     <td>'.$SearchQuery['Marca'].'</td>
-     <td>'.$SearchQuery['Modelo'].'</td>
-  </tr>
- </table>
- </section>
-';
- $this-> Marca = true;
-break;
-}
-  if($this->Marca == false && $Search == true){
-   echo "
-   <h1>Não Existe Marca Registrada</h1>
-   "; 
- }
-}
+      if($this->Marca == false && $Search == true){
+         echo "
+         <h1>Não Existe Marca Registrada</h1>
+         "; 
+      }
+      }
 
     }
     public function SelectThePlateForRegistration($Conecta, $Placa){
@@ -91,7 +100,17 @@ break;
      <th><h3 title="Marca">Marca</h3></th>
      <th><h3 title="Modelo">Modelo</h3></th>
      <th><a href="ManutencaoCarro.php?Car='.$SelectCars['Car_Id'].'" title="Ver Mais" target="_blank">Manutenção</a></th>
-     <th><a href="PHP/FunctionsDB/Crud/Delete.php/Delete.php?Car='.$SelectCars['Car_Id'].'" title="Ver Mais" target="_blank">Excluir</a></th>
+     <th>
+     <a href="PHP/FunctionsDB/Crud/Delete.php/Delete.php?Car='.$SelectCars['Car_Id'].'" title="Excluir" target="_blank">
+     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-trash">
+     <polyline points="3 6 5 6 21 6" />
+     <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+     <path d="M10 11v6" />
+     <path d="M14 11v6" />
+     <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+     </svg>
+     </a>
+     </th>
  </tr>
     <tr>
      <td>'.$SelectCars['Placa'].'</td>
@@ -142,6 +161,13 @@ class SelectMaintenance{
         maintenance.Peca, maintenance.Valor_Peca, maintenance.Valor_Mao_De_Obra ,maintenance.Data,
          maintenance.Tipo_De_Manutencao, maintenance.Kilometragem ,cars.Car_Id, cars.Placa, cars.Marca, cars.Modelo
       FROM  maintenance INNER JOIN cars ON maintenance.Id_Car = Cars.Car_Id WHERE maintenance.Id_Car = $Id_URl");
+      $IconAlterar = '
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" 
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-edit">
+         <path d="M12 20h9" />
+         <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+         </svg>
+      ';
        while($SelectLinhaIdMaintenance = $QuerySelectIdCarUrl->fetch(PDO::FETCH_ASSOC)){
             if($SelectLinhaIdMaintenance == true){
                 echo 
@@ -149,12 +175,24 @@ class SelectMaintenance{
         <section class="TabelaManutencao">
      <table class="Tabela">
      <tr>
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Placa&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Placa" target="_blank">Placa</a></th>        
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Peca&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Peça" target="_blank">Peça</a></th>
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=ValorPeca&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Valor Da Peça" target="_blank" >Valor Peça</a></th>
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=ValorMaoDeObra&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Valor Da Mão De Obra" target="_blank">Valor Mão De Obra</a></th>
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Kilometragem&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Modelo" target="_blank">Kilometragem</a></th>
-         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Data&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Modelo" target="_blank">Data</a></th>
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Placa&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar A Placa" target="_blank">
+         '.$IconAlterar.'
+         </a></th>        
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Peca&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar A Peça" target="_blank">
+        '.$IconAlterar.'
+         </a></th>
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=ValorPeca&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar O Valor Da Peça" target="_blank" >
+         '.$IconAlterar.'
+         </a></th>
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=ValorMaoDeObra&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar O Valor Da Mão De Obra" target="_blank">
+         '.$IconAlterar.'
+         </a></th>
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Kilometragem&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar O Modelo Do Carro" target="_blank">
+         '.$IconAlterar.'
+         </a></th>
+         <th><a href="AlterarDados.php?ID='.$SelectLinhaIdMaintenance['id_manutencao'].'&Alterar=Data&IDCar='.$SelectLinhaIdMaintenance['Car_Id'].'" title="Alterar A Data" target="_blank">
+         '.$IconAlterar.'
+         </a></th>
      </tr>
         <tr>
          <td>'.$SelectLinhaIdMaintenance['Placa'].'</td>
@@ -189,38 +227,15 @@ class SelectMaintenance{
 $SelectCar = new SelectCar(); 
 $SelectMaintenance = new SelectMaintenance();
 class SelectLogin {
-    public function SelectLoginEmpresarial($Conecta, $email, $senha, $select) {
-      $QueryEmpresarialSelect = $Conecta->prepare("SELECT email, senha, status FROM empresa WHERE email = :email AND senha = :senha AND status = :status");
-      $QueryEmpresarialSelect->bindParam(':email', $email);
-      $QueryEmpresarialSelect->bindParam(':senha', $senha);
-      $QueryEmpresarialSelect->bindValue(':status', "Empresarial");
-      $QueryEmpresarialSelect->execute();
-           if ($QueryEmpresarialSelect->rowCount() > 0) {
+    public function SelectLogin($Conecta, $email, $senha) {
+      $Query = $Conecta->prepare("SELECT  Email, Senha, TipoCadastro FROM emailusuarios  WHERE Email = :Email AND Senha = :Senha");
+      $Query->bindParam(':Email', $email);
+      $Query->bindParam(':Senha', $senha);
+      $Query->execute();
+           if ($Query->rowCount() > 0) {
             echo 'logar';
-        } else {
-            echo 'Email ou Senha Inválido';
-        }
-    }
-    public function SelectLoginGratuito($Conecta, $email, $senha){
-      $QueryGratuitolSelect = $Conecta->prepare("SELECT email, senha, Status FROM user WHERE email = :email AND senha = :senha AND Status = :status");
-      $QueryGratuitolSelect->bindParam(':email', $email);
-      $QueryGratuitolSelect->bindParam(':senha', $senha);
-      $QueryGratuitolSelect->bindValue(':status', "Gratuito");
-      $QueryGratuitolSelect->execute();
-           if ($QueryGratuitolSelect->rowCount() > 0) {
-            echo 'logar';
-        } else {
-            echo 'Email ou Senha Inválido';
-        }
-    }
-    public function SelectLoginPro($Conecta, $email, $senha, $select){
-      $QueryProlSelect = $Conecta->prepare("SELECT email, senha, status FROM pro WHERE email = :email AND senha = :senha AND status = :status");
-      $QueryProlSelect->bindParam(':email', $email);
-      $QueryProlSelect->bindParam(':senha', $senha);
-      $QueryProlSelect->bindValue(':status', "Pro");
-      $QueryProlSelect->execute();
-           if ($QueryProlSelect->rowCount() > 0) {
-            echo 'logar';
+            $TipoLogin = $Query->fetch(PDO::FETCH_ASSOC);
+            /* Criar as sessions e usar a váriavel TipoLogin para diferenciar os usuários */
         } else {
             echo 'Email ou Senha Inválido';
         }

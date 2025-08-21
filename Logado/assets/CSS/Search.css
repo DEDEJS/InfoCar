@@ -1,9 +1,9 @@
-header .Search{
+main .Search{
     display: grid;
     grid-template-columns: auto auto auto;
     color:red;
 }
-header .Search button{
+main .Search button{
     padding: 2%;
     text-align: center;
     font-size: larger;
@@ -11,22 +11,22 @@ header .Search button{
     width: 80%;
     border: none;
 }
-header .Search input[type="search"], header .Search select{
+main .Search input[type="search"], main .Search select{
     padding: 1%;
     font-size: larger;
     width:40%;
     border-radius:6px;
 }
-header .Search input[type="search"]{
+main .Search input[type="search"]{
     background-color: aqua;
     border: none;
 }
-header .Search select{
+main  .Search select{
     text-align: center;
     border: auto;
     cursor: pointer;
 }
-header .Search input[type="submit"]{
+main .Search input[type="submit"]{
     padding: 1%;
     font-size: larger;
     width:20%;

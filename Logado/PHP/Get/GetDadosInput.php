@@ -1,6 +1,38 @@
 <?php 
- class GetCadastroManutencao{
-    public function GetTipoManutencao(){
+ class GetDadosInput{
+    public function GetPlaca(){
+        if(isset($_POST['Placa'])){
+            return htmlspecialchars($_POST['Placa']);
+        }
+    }
+    public function GetMarca(){
+        if(isset($_POST['Marca'])){
+         return htmlspecialchars($_POST['Marca']);
+        }
+    }
+    public function GetModelo(){
+        if(isset($_POST['Modelo'])){
+            return htmlspecialchars($_POST['Modelo']);
+           }
+    }
+    public function GetMeuCarro(){
+        if(isset($_POST['MeuCarro'])){
+            return htmlspecialchars($_POST['MeuCarro']);
+        }
+    }
+    public function GetQuilometragem(){
+        if(isset($_POST['Quilometragem'])){
+            return htmlspecialchars($_POST['Quilometragem']);
+        }
+    }
+    public function GetPrivacidade(){
+        if(isset($_POST['Privacidade'])){
+            return htmlspecialchars($_POST['Privacidade']);
+        }
+    }
+
+
+     public function GetTipoManutencao(){
         if(isset($_POST['tipo'])){
             return htmlspecialchars($_POST['tipo']);
         }
@@ -72,3 +104,4 @@
     }
    
  }
+ $GetDadosInput = new GetDadosInput();
