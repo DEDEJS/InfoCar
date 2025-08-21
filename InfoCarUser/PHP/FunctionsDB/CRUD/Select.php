@@ -3,13 +3,12 @@ ini_set('default_charset','UTF-8');
 class VerificaSeExisteDadosCadastrados{
     public function VerificaCPF($CPF, $Conecta){
        if($CPF != null){
-        $SQLCPF = "SELECT  cpf FROM user WHERE cpf = :CPF";
+        $SQLCPF = "SELECT  cpf FROM user WHERE cpf = :CPF LIMIT 1";
         $QueryCPF = $Conecta->prepare($SQLCPF);
         $QueryCPF->bindParam(':CPF', $CPF, PDO::PARAM_STR);
         $QueryCPF->execute();
         $UsuarioEncontrado = $QueryCPF->fetch(PDO::FETCH_ASSOC);
       if ($UsuarioEncontrado) {
-            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
             return false;
       } else {return true;}
       }
@@ -20,23 +19,25 @@ class VerificaSeExisteDadosCadastrados{
          $QueryCNPJ = $Conecta->prepare($SQLCNPJ);
          $QueryCNPJ->bindParam(':CNPJ', $CNPJ, PDO::PARAM_STR);
          $QueryCNPJ->execute();
-         if ($UsuarioEncontrado) {
-            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
+         $CNPJEncontrado = $QueryCNPJ->fetch(PDO::FETCH_ASSOC);
+         if ($CNPJEncontrado) {
             return false;
       } else {return true;}
       }
     }
-    public function VerificaEMAIL($Email, $Conecta){
-         $SQLMAIL = "SELECT empresa, pro, user FROM empresa WHERE Email = :EMAIL";
-         $QueryEMAIL = $Conecta->prepare($SQLCNPJ);
-         $QueryEMAIL->bindParam(':EMAIL', $CNPJ, PDO::PARAM_STR);
-         $QueryEMAIL->execute();
-         if ($UsuarioEncontrado) {
-            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
+    public function VerificaEmail($Email, $Conecta){ 
+        if($Email != null){
+           $SQLEMAIL = "SELECT Email FROM emailusuarios WHERE Email = :Email LIMIT 1";
+           $QueryEmail = $Conecta->prepare($SQLEMAIL);
+           $QueryEmail->bindParam(':Email', $Email, PDO::PARAM_STR);
+           $QueryEmail->Execute();
+           $EmailEncontrado = $QueryEmail->fetch(PDO::FETCH_ASSOC);
+           if ($EmailEncontrado) {
             return false;
-            die();
       } else {return true;}
+        }
     }
 }
+        $VerificaSeExisteDadosDB = new VerificaSeExisteDadosCadastrados();
 
 ?>

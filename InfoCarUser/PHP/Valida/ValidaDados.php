@@ -1,5 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
+date_default_timezone_set('America/Sao_Paulo');
 class GetDados{
      public function GetNome(){
         if(isset($_POST['nome'])){
@@ -89,6 +90,9 @@ class ValidaDados extends GetDados{
     public $EmailValue;
     public $SenhaValue;
     public $TelefoneValue;
+    public $EnderecoValue;
+    public $EnderecoNumeroValue;
+
     public $Validado;
  public function __construct(){
     $this-> GetDados = new GetDados();
@@ -102,45 +106,57 @@ class ValidaDados extends GetDados{
     }else{
         return [$this-> Nome = true,$this->NomeValue =  $nome];
     }
- }   
-  public function ValidaCnpj(){
-    $cnpj = $this-> GetDados -> GetCNPJ();
-    $cnpjValidado = preg_replace('/[^0-9]/', '', $cnpj);
+ } 
+function validaCnpj() {
+    $cnpj = $this->GetDados->GetCNPJ();
+    $cnpj = preg_replace('/\D/', '', $cnpj);
 
-    if (strlen($cnpjValidado) != 14) {
-     echo "CNPJ Inválido";
-    }else if (preg_match('/(\d)\1{13}/', $cnpjValidado)) {
-       echo "CNPJ Inválido";
-       return false;
-    }else{
+    if (strlen($cnpj) != 14) {
+        echo "CNPJ Inválido1";
+        return false;
+    } else if (preg_match('/(\d)\1{13}/', $cnpj)) {
+        echo "CNPJ Inválido2";
+        return false;
+    } else {
+        for ($t = 12; $t < 14; $t++) {
+            $d = 0;
+            for ($m = $t - 7, $i = 0; $i < $t; $i++) {
+                $d += $cnpj[$i] * $m;
+                $m--;
+                if ($m < 2) {
+                    $m = 9;
+                }
+            }
+            $digito = ((10 * $d) % 11) % 10;
+            if ((int)$cnpj[$t] !== $digito) {
+                echo "CNPJ Inválido3";
+                return false;
+            }
+        }
 
-    for ($t = 12; $t < 14; $t++) {
-        $d = 0;
-        $c = 0;
-        for ($m = $t - 7, $i = 0; $i < $t; $i++, $m--) {
-            $d += $cnpjValidado[$i] * $m;
-            if ($m < 2) $m = 9;
-        }
-        $digito = ((10 * $d) % 11) % 10;
-        if ($cnpjValidado[$t] != $digito) {
-            echo "CNPJ Inválido";
-        }else{
-            return [$this-> CNPJ = true, $this->CNPJValue = $cnpjValidado];
-        }
-    } 
-    
- }
-  }
+        // Só chega aqui se os dois dígitos forem válidos
+        
+        return [$this->CNPJ = true, $this->CNPJValue = $cnpj];
+    }
+}
+
+
   public function ValidaEndereco(){
     $endereco = $this-> GetDados -> GetEndereco();
     if(strlen($endereco) <= 1){
      echo "Endereço Inválido";
+    }else{
+        return [$this->Endereco = true, $this->EnderecoValue = $endereco];
     }
   }
   public function ValidaNumeroEndereco(){
-    $numero = $this-> GetDados -> GetNumeroEndereco();
-    if(strlen($numero) <= 0){
+    $NumeroEndereco = $this-> GetDados -> GetNumeroEndereco();
+    if(strlen($NumeroEndereco) <= 0){
        echo "Preenche o Campo";
+    }else if(!is_numeric($NumeroEndereco)){
+       echo "Número Inválido";
+    }else{
+        return [$this->EnderecoNumero = true, $this->EnderecoNumeroValue = $NumeroEndereco];
     }
 }
 public function validaCpf(){
@@ -194,8 +210,11 @@ public function validaCpf(){
   }
   public function VerificaCadastroEmpresarial(){
     if($this-> Nome == true && $this-> CNPJ == true && $this->Endereco == true && 
-    $this-> Email == true && $this-> Senha == true && $this-> Telefone == true){
+    $this-> EnderecoNumero == true && $this-> Email == true && $this-> Senha == true &&
+     $this-> Telefone == true){
      return   $this->Validado = true; 
+     }else{
+        var_dump($this-> Endereco);
      }
   }
   public function InsertGratuito(){
@@ -208,41 +227,53 @@ public function validaCpf(){
         $Email = $this->EmailValue;
         $Senha = $this->SenhaValue;
         $Telefone = $this->TelefoneValue;
-        $VerificaSeExisteDadosNoDB = new VerificaSeExisteDadosCadastrados();
-        if($VerificaSeExisteDadosNoDB->VerificaCPF($CPF, $Conecta) != false
-         && $VerificaSeExisteDadosNoDB->VerificaEMAIL($Email, $Conecta) != false){
+        if($VerificaSeExisteDadosDB -> VerificaEmail($Email, $Conecta) != false && 
+        VerificaCPF($CPF, $Conecta)){
             $Insert -> InsertGratuito($Nome,$CPF,$Email,$Senha,$Telefone,$Conecta);
+        }else{
+            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
         }
         
        }
   }
    public function InsertPro(){
        if($this->Validado == true){
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
         include_once("PHP/Banco/Banco.php");
+        include_once("PHP/FunctionsDB/CRUD/Select.php");
         $Nome =  $this->NomeValue;
         $CPF = $this->CPFValue;
         $Email = $this->EmailValue;
         $Senha = $this->SenhaValue;
         $Telefone = $this->TelefoneValue;
-        if($VerificaCrudCpf->VerificaCPF($CPF, $Conecta) != false){
+        if($VerificaSeExisteDadosDB -> VerificaEmail($Email, $Conecta) != false  && 
+        $VerificaSeExisteDadosDB->VerificaCPF($CPF, $Conecta) != false){
+        include_once("PHP/FunctionsDB/CRUD/insert.php");
         $Insert -> InsertPro($Nome,$CPF,$Email,$Senha,$Telefone,$Conecta);
-        echo "ok";
+         }else{
+            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
          }
        }
   }
   public function InsertEmpresarial(){
        if($this->Validado == true){
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
         include_once("PHP/Banco/Banco.php");
+        include_once("PHP/FunctionsDB/CRUD/Select.php");
         $Nome =  $this->NomeValue;
-        $CNPJ = $this->CPFValue;
+        $CNPJ = $this->CNPJValue;
         $Email = $this->EmailValue;
         $Senha = $this->SenhaValue;
         $Telefone = $this->TelefoneValue;
-        if($VerificaSeExisteDados->VerificaCPF($CPF, $Conecta) != false){
-        $Insert -> InsertEmpresarial($Nome,$CNPJ,$Email,$Senha,$Telefone,$Endereco,$Numero,$Conecta);
-        echo "ok";
+        $Endereco = $this->EnderecoValue;
+        $Numero = $this->EnderecoNumeroValue;
+        if($VerificaSeExisteDadosDB->VerificaEmail($Email, $Conecta) == false){
+         echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a>
+         Se for alterar o plano é só logar na conta e ir em meus dados</span> ';
+        }else if($VerificaSeExisteDadosDB->VerificaCNPJ($CNPJ, $Conecta) == false){
+       echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http://localhost/Projects/InfoCar/login.php">Logar</a>
+         Se for alterar o plano é só logar na conta e ir em meus dados</span> ';
+         }else{
+            include_once("PHP/FunctionsDB/CRUD/insert.php");
+            $Insert -> InsertEmpresarial($Nome,$CNPJ,$Email,$Senha,$Telefone,$Endereco,$Numero,$Conecta);
          }
        }
   }
