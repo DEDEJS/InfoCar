@@ -1,6 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/Valida/ValidaDados.php");
+include_once("../PHP/ValidaDados/ValidaForm.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,8 @@ session_start();
   <title>Cadastro - InfoCar</title>
   <link rel="stylesheet" href="Assets/CSS/Form.css">
   <link  type="text/css" rel="stylesheet"  href="Assets/CSS/Menu.css">
-  <script src="Assets/JS/Interacao.js"></script>
+  <script src="../JS/Interacao.js"></script>
+  <script src="../JS/ValidaForm.js"></script>
 </head>
 <body>
    <header>
@@ -48,14 +49,14 @@ session_start();
     <div class="container">
       <h1>Cadastro Gratuito</h1>
       <p>Crie sua conta e comece a usar o InfoCar gratuitamente</p>
-      <form action="#" method="post" class="form-cadastro">
-        <label for="nome">Nome completo <span><?php $ValidaDados -> ValidaNome(); ?></span></label>
+      <form action="#" method="post" class="form-cadastro" onclick="return ValidaCadastroGratuito();">
+        <label for="nome">Nome completo <span id="ErrorNome"><?php $ValidaDados -> ValidaNome(); ?></span></label>
         <input type="text" id="nome" name="nome" placeholder="Nome:" value="<?php $Value -> ValueNome(); ?>">
-        <label for="email">CPF <span><?php $ValidaDados -> ValidaCpf(); ?></span></label>
+        <label for="cpf">CPF <span id="ErrorCpf"><?php $ValidaDados -> ValidaCpf(); ?></span></label>
         <input type="text" id="cpf" name="cpf" placeholder="Ex: 55555555555" max="11" value="<?php $Value -> ValueCpf(); ?>">
-        <label for="email">E-mail <span><?php $ValidaDados -> ValidaEmail(); ?></span></label>
+        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidaDados -> ValidaEmail(); ?></span></label>
         <input type="email" id="email" name="email" placeholder="Email:" value="<?php $Value -> ValueEmail(); ?>">
-        <label for="senha">Senha <span><?php $ValidaDados -> ValidaSenha(); ?></span></label>
+        <label for="senha">Senha <span id="ErrorSenha"><?php $ValidaDados -> ValidaSenha(); ?></span></label>
          <div class="input-wrapper" onclick="return ShowPassword();">  
           <input type="password" id="senha" name="senha" placeholder="Senha: ">
           <!-- Ícone olho -->
@@ -67,9 +68,9 @@ session_start();
               <circle cx="12" cy="12" r="3"/>
             </svg>
       </div>
-        <label for="telefone">Telefone  <span><?php $ValidaDados -> ValidaTelefone(); ?></span></label>
+        <label for="telefone">Telefone  <span id="ErrorTelefone"><?php $ValidaDados -> ValidaTelefone(); ?></span></label>
         <input type="tel" id="telefone" name="telefone"  placeholder="(11) 99999-9999" value="<?php $Value -> ValueTelefone(); ?>"><!-- pattern="\(\d{2}\) \d{4,5}-\d{4}" -->
-        <button type="submit" class="btn-primary">Criar Conta</button>
+        <button type="submit" class="btn-primary" value="button" name="button" id="button">Criar Conta</button>
         <?php 
         $ValidaDados -> VerificaCadastroProEGratuito();
         $ValidaDados -> InsertGratuito();

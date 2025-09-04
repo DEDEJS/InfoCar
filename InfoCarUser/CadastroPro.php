@@ -1,6 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/Valida/ValidaDados.php");
+include_once("../PHP/ValidaDados/ValidaForm.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -10,7 +10,8 @@ include_once("PHP/Valida/ValidaDados.php");
   <title>Cadastro - InfoCar</title>
   <link rel="stylesheet" href="Assets/CSS/Form.css">
   <link  type="text/css" rel="stylesheet"  href="Assets/CSS/Menu.css">
-  <script src="Assets/JS/Interacao.js"></script>
+  <script src="../JS/Interacao.js"></script>
+  <script src="../JS/ValidaForm.js"></script>
 </head>
 <body>
    <header>
@@ -47,7 +48,7 @@ include_once("PHP/Valida/ValidaDados.php");
     <div class="container">
       <h1>Cadastro Mensal R$ 8</h1>
       <p>Crie sua conta e comece a usar o InfoCar Por R$ 8 mensal</p>
-      <form action="#" method="post" class="form-cadastro">
+      <form action="#" method="post" class="form-cadastro" onclick="return ValidaCadastroPro();">
         <label for="nome">Nome completo <span><?php $ValidaDados -> ValidaNome(); ?></span></label>
         <input type="text" id="nome" name="nome" placeholder="Nome:" value="<?php $Value -> ValueNome(); ?>">
         <label for="email">CPF <span><?php $ValidaDados -> ValidaCpf(); ?></span></label>
@@ -68,7 +69,7 @@ include_once("PHP/Valida/ValidaDados.php");
       </div>
         <label for="telefone">Telefone  <span><?php $ValidaDados -> ValidaTelefone(); ?></span></label>
         <input type="tel" id="telefone" name="telefone"  placeholder="(11) 99999-9999" value="<?php $Value -> ValueTelefone(); ?>"><!-- pattern="\(\d{2}\) \d{4,5}-\d{4}" -->
-        <button type="submit" class="btn-primary">Criar Conta</button>
+        <button type="submit" class="btn-primary" value="button" id="button" name="button">Criar Conta</button>
         <?php 
         $ValidaDados -> VerificaCadastroEmpresarial();
         $ValidaDados -> InsertPro();

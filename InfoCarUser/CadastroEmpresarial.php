@@ -1,6 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/Valida/ValidaDados.php");
+include_once("../PHP/ValidaDados/ValidaForm.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -10,7 +10,8 @@ include_once("PHP/Valida/ValidaDados.php");
   <title>Cadastro - InfoCar</title>
   <link rel="stylesheet" href="Assets/CSS/Form.css">
   <link  type="text/css" rel="stylesheet"  href="Assets/CSS/Menu.css">
-  <script src="Assets/JS/Interacao.js"></script>
+  <script src="../JS/Interacao.js"></script>
+  <script src="../JS/ValidaForm.js"></script>
 </head>
 <body>
  <header>
@@ -42,20 +43,20 @@ include_once("PHP/Valida/ValidaDados.php");
       </svg>
     </button>
     </div>
-  </header>
+</header>
   <main class="cadastro">
     <div class="container">
       <h1>Cadastro Empresarial</h1>
       <p>Crie sua conta e comece a usar o InfoCar Por R$ 49, no primeiro mês</p>
-      <form action="#" method="post" class="form-cadastro">
+      <form action="#" method="post" class="form-cadastro" onclick="return ValidaCadastroEmpresarial();">
         <label for="nome">Nome da oficina / empresa	 <span><?php $ValidaDados -> ValidaNome(); ?></span></label>
         <input type="text" id="nome" name="nome" placeholder="Nome Da Empresa:" value="<?php $Value -> ValueNome(); ?>">
         <label for="cnpj">CNPJ <span><?php $ValidaDados -> ValidaCNPJ(); ?></span></label>
         <input type="text" id="cnpj" name="cnpj" placeholder="Ex: 55.555.555/5555-55" value="<?php $Value -> ValueCnpj(); ?>">
         <label for="endereco">Endereço <span><?php $ValidaDados -> ValidaEndereco(); ?></span></label>
         <input type="text" id="endereco" name="endereco" placeholder="Ex: Rua " value="<?php $Value -> ValueEndereco(); ?>">
-        <label for="numero">Número	 <span><?php $ValidaDados -> ValidaNumeroEndereco(); ?></span></label>
-        <input type="text" id="numero" name="numero" placeholder="Número:" value="<?php $Value -> ValueNumeroEndereco(); ?>">
+        <label for="numero">Número	<span><?php $ValidaDados -> ValidaNumeroEndereco(); ?></span></label>
+        <input type="number" id="numero" name="numero" placeholder="Número:" value="<?php $Value -> ValueNumeroEndereco(); ?>">
         <label for="telefone">Telefone Comercial <span><?php $ValidaDados -> ValidaTelefone(); ?></span></label>
         <input type="tel" id="telefone" name="telefone"  placeholder="11 99999-9999" value="<?php $Value -> ValueTelefone(); ?>">
         <label for="email">E-mail Comercial <span><?php $ValidaDados -> ValidaEmail(); ?></span></label>
@@ -72,7 +73,7 @@ include_once("PHP/Valida/ValidaDados.php");
               <circle cx="12" cy="12" r="3"/>
             </svg>
       </div>
-        <button type="submit" class="btn-primary">Criar Conta</button>
+        <button type="submit" class="btn-primary" name="button" id="button">Criar Conta</button>
       </form>
       <?php 
       $ValidaDados -> VerificaCadastroEmpresarial();

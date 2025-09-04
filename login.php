@@ -1,7 +1,7 @@
 <?php
 ini_set('default_charset','UTF-8');
 session_start();
-include_once("Logado/PHP/ValidaDados/ValidaLogin.php");
+include_once("PHP/ValidaDados/ValidaForm.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -9,9 +9,10 @@ include_once("Logado/PHP/ValidaDados/ValidaLogin.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - InfoCar</title>
-  <link  type="text/css" rel="stylesheet"  href="InfoCarUser/Assets/CSS/Menu.css">
+  <link  type="text/css" rel="stylesheet" href="InfoCarUser/Assets/CSS/Menu.css">
   <link rel="stylesheet" href="InfoCarUser/Assets/CSS/Form.css">
-  <script src="InfoCarUser/Assets/JS/Interacao.js"></script>
+  <script src="JS/Interacao.js"></script>
+  <script src="JS/ValidaForm.js"></script>
 </head>
 <body>
 <header>
@@ -43,16 +44,16 @@ include_once("Logado/PHP/ValidaDados/ValidaLogin.php");
       </svg>
     </button>
     </div>
-  </header>
+</header>
   <main class="login">
     <div class="container">
       <h1>Login</h1>
-      <form action="#" method="post" class="form-login">
-        <label for="email">E-mail <span><?php $ValidaLogin -> ValidaEmail();?></span></label>
-        <input type="email" id="email" name="email" placeholder="Email:" value="<?php $ValueLogin -> ValueEmail();?>">
-        <label for="senha">Senha <span><?php  $ValidaLogin-> ValidaSenha();?></span></label>
+      <form action="#" method="post" class="form-login" onclick="return ValidaLogin();">
+        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidaDados -> ValidaEmail();?></span></label>
+        <input type="email" id="email" name="email" placeholder="Email:" value="<?php $Value -> ValueEmail();?>">
+        <label for="senha">Senha <span id="ErrorSenha"><?php  $ValidaDados-> ValidaSenha();?></span></label>
         <div class="input-wrapper" onclick="return ShowPassword();">
-        <input type="password" id="senha" name="senha" placeholder="Senha: ">
+        <input type="password" id="senha" name="senha"  placeholder="Senha: " value="<?php $Value -> ValueSenha();?>">
           <!-- Ícone olho -->
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
               viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -62,15 +63,10 @@ include_once("Logado/PHP/ValidaDados/ValidaLogin.php");
             <circle cx="12" cy="12" r="3"/>
           </svg>
       </div>
-       <!-- <label for="login-select">Logar Como <span><?php /* $ValidaLogin-> ValidaSelect(); */ ?> </span></label>
-        <select name="login-select" id="">
-            <option>---</option>
-            <option>Empresarial</option>
-            <option>Gratuito</option>
-            <option>Pro</option>
-        </select>-->
-        <button type="submit" class="btn-primary">Logar</button>
-        <span><?php $ValidaLogin -> VerificaLogin();?></span>
+        <button type="submit" class="btn-primary" name="button" id="button">Logar</button>
+        <span><?php
+        $ValidaDados -> VerificaLoginSeDadosForamDigitados(); 
+        ?></span>
         <p>Novo aqui? <a href="http://localhost/Projects/InfoCarPage/#plans" target="_blank">Escolha um plano</a></p>
       </form>
     </div>
