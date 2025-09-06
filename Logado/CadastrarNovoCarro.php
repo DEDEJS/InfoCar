@@ -1,6 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/ValidaDados/ValidaCadastro.php");
+include_once("../PHP/ValidaDados/ValidaCadastroCarro.php");
 ?>
 <!DOCTYPE HTML>
 <html lang="PT-BR">
@@ -8,13 +8,13 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 <meta charset="UTF-8">
 <title>Cadastro De Carro</title>
 <meta name="viewport" content="initial-scale=1">
-<link rel="stylesheet" href="../InfoCarUser/Assets/CSS/Cadastro.css">
+<link rel="stylesheet" href="../InfoCarUser/Assets/CSS/Form.css">
 <link  type="text/css" rel="stylesheet"  href="../InfoCarUser/Assets/CSS/Menu.css">
 <script src="../InfoCarUser/Assets/JS/Interacao.js"></script>
 <script type="text/javascript" src="assets/JAVASCRIPT/ValidaCadastroCarro.js"></script>
 </head>
 <body>
- <header>
+<header>
   <div class="container">
       <div class="MenuH1-toggle">
          <svg width="220" height="60" xmlns="http://www.w3.org/2000/svg">
@@ -48,10 +48,10 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 <main class="cadastro">
  <div class="container">
    <h1>Cadastrar Novo Carro</h1>
-   <form action="#" method="post" class="form-cadastro">
-   <label for="Placa">Placa <span class="error"><?php $ValidaCadastro->ValidaPlaca($Placa);?></span></label>
+  <form action="#" method="post" class="form-cadastro">
+   <label for="Placa">Placa <span class="error"><?php $CarValidator->ValidateLicensePlate();?></span></label>
    <input type="text" placeholder="Placa:" name="Placa" id="Placa">
-   <label for="Marca">Marca <span><?php $ValidaCadastro -> ValidaMarca($Marca, $Modelo);$ValidaCadastro->  ValidaMarcaSelecionada();?></span></label>
+   <label for="Marca">Marca <span><?php $CarValidator -> ValidateBrand();$CarValidator->  ValidaMarcaSelecionada();?></span></label>
    <select name="Marca" id="Marca" onclick="return ValidaformCadastro();">
       <option>---</option>
       <option>Audi</option>
@@ -67,24 +67,24 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
       <option>Renault</option>
       <option>Volkswagen</option>
    </select>
-   <div id="ModeloSelect" class="ModeloSelect"><label for="Modelo">Modelo <span><?php $ValidaCadastro -> Modelos(); $ValidaCadastro -> ValidaModelos($Modelo); ?></label>
+   <div id="ModeloSelect" class="ModeloSelect"><label for="Modelo">Modelo <span><?php $CarValidator -> Model(); $CarValidator -> ValidateModel(); ?></label>
    <br>
    <select name="Modelo" id="Modelo" class="Modelo">
    <option>Outro Modelo</option>
    <?php
-         $ValidaCadastro -> ImprimeValores();
+         $CarValidator -> ImprimeValores();
       ?>
    </select> 
    </div>
-     <label for="MeuCarro">Meu Carro <span><?php $ValidaCadastro -> ValidaMeuCarro($MeuCarro); ?></span></label>
+     <label for="MeuCarro">Meu Carro <span><?php $CarValidator -> ValidateMyCar(); ?></span></label>
       <select name="MeuCarro" id="MeuCarro">
          <option>---</option>
          <option>Adicionar Ao Meu Carro</option>
          <option>Não Adicionar Ao Meu Carro</option>
       </select> 
-      <label for="Quilometragem">Quilometragem <span><?php $ValidaCadastro -> ValidaQuilometragem($Quilometragem); ?></span></label>
+      <label for="Quilometragem">Quilometragem <span><?php $CarValidator -> ValidateMileage(); ?></span></label>
       <input type="number" placeholder="Quilometragem" name="Quilometragem" id="Quilometragem">
-      <label for="Privacidade">Deseja Deixar Esse Carro Privado? <span><?php $ValidaCadastro -> ValidaPrivacidade($Privacidade); ?></span></label>
+      <label for="Privacidade">Deseja Deixar Esse Carro Privado? <span><?php $CarValidator -> ValidatePrivacy(); ?></span></label>
        <select name="Privacidade">
         <option>---</option>
          <option>Sim</option>
@@ -92,8 +92,8 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
        </select>
   <button type="submit" class="btn-primary">Cadastrar Novo Carro</button>
       <?php 
-   $ValidaCadastro->  ValidaMarcaSelecionada();
-   $ValidaCadastro -> HeaderCadastro($Placa,$Marca,$Modelo,$MeuCarro,$Quilometragem);
+  /* $CarValidator->  ValidaMarcaSelecionada();
+   $CarValidator -> HeaderCadastro($Placa,$Marca,$Modelo,$MeuCarro,$Quilometragem);*/
    ?>
    </form>
  </div>

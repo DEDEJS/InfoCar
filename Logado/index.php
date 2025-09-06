@@ -1,8 +1,6 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/ValidaDados/ValidaCadastro.php");
-include_once("PHP/FunctionsDB/Crud/Select.php");
-include_once("PHP/Banco/Banco.php");
+
 ?>
 <!DOCTYPE HTML>
 <html lang="PT-BR">
@@ -18,7 +16,7 @@ include_once("PHP/Banco/Banco.php");
 
 </head>
 <body>
- <header>
+<header>
   <div class="container">
       <div class="MenuH1-toggle">
          <svg width="220" height="60" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +26,7 @@ include_once("PHP/Banco/Banco.php");
             <text x="70" y="40" font-size="24" fill="#007BFF">Info</text>
             <text x="110" y="40" font-size="24" fill="#222222">Car</text>
           </g>
-</svg>
+        </svg>
    </div>
     <nav>
         <ul class="MenuLinks">

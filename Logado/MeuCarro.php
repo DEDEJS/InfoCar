@@ -1,8 +1,8 @@
 <?php
 ini_set('default_charset','UTF-8');
-include_once("PHP/Banco/Banco.php");
-include_once("PHP/ValidaDados/ValidaCadastro.php");
-include_once("PHP/FunctionsDB/Crud/Select.php");
+include_once("../PHP/Banco/Banco.php");
+include_once("../PHP/ValidaDados/ValidaCadastroCarro.php");
+include_once("../PHP/FunctionsDB/Crud/Select.php");
 ?>
 <!DOCTYPE HTML>
 <html lang="PT-BR">
@@ -28,8 +28,8 @@ include_once("PHP/FunctionsDB/Crud/Select.php");
             <text x="110" y="40" font-size="24" fill="#222222">Car</text>
           </g>
          </svg>
-</div>
- <nav>
+       </div>
+  <nav>
   <ul class="MenuLinks">
   <li><a href="index.php" title="Página Inicial">Página Inicial</a></li>
   <li><a href="MeuCarro.php" title="Meu Carro" class="MeuCarroNav">Meu Carro</a></li>
@@ -37,53 +37,53 @@ include_once("PHP/FunctionsDB/Crud/Select.php");
   <li><a href="Manutencao.php" title="Manutenção">Manutenção</a></li>
   <li><a href="MeusDados.php" title="Meus Dados" target="_blank">Meus Dados</a></li>
  </ul>
- <button class="menu-toggle" aria-label="Abrir menu">
+  <button class="menu-toggle" aria-label="Abrir menu">
       <svg width="30" height="24" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg">
         <rect y="0" width="40" height="4" rx="2" fill="#333"/>
         <rect y="12" width="40" height="4" rx="2" fill="#333"/>
         <rect y="24" width="40" height="4" rx="2" fill="#333"/>
       </svg>
- </button>
-</nav>
+  </button>
+ </nav>
 </header>
 <main>
-<section class="Search">
-    <h3>Procurar Por Marca</h3>
-<form action="#" method="POST">
-<?php 
-$ValidaCadastro -> ValidaMarca($Marca);
-$Search = $ValidaCadastro -> ValidaSearch(); 
-?>
-<select name="Marca" id="Marca" onclick="return ValidaformCadastro();">
-    <option>---</option>
-    <option>Audi</option>
-    <option>Bmw</option>
-    <option>Chevrolet</option>
-    <option>Fiat</option>
-    <option>Ford</option>
-    <option>Honda</option>
-    <option>Hyundai</option>
-    <option>Jeep</option>
-    <option>Kia</option>
-    <option>Mercedes-Bens</option>
-    <option>Renault</option>
-    <option>Volkswagen</option>
- </select>
-     <input type="submit" value="Procurar">
-</form>
-</section> 
-<section>
-<div>
-    <center><h2>Seu Carro Favorito</h2></center>
-<?php 
-$SelectCar -> SearchMarca($Search, $Marca, $Conecta); 
-$SelectCar -> MostraCarroSelecionado($Conecta);
-?>
-<div>
-  <h1><?php  $SelectCar -> VerificaSeExisteCarroSelecionado(); ?></h1>
-</div>
-</div>
-</section>
+ <section class="Search">
+      <h3>Procurar Por Marca</h3>
+  <form action="#" method="POST">
+  <?php 
+  $CarValidator -> ValidaMarca();
+  $Search = $ValidaCadastro -> ValidaSearch(); 
+  ?>
+  <select name="Marca" id="Marca" onclick="return ValidaformCadastro();">
+      <option>---</option>
+      <option>Audi</option>
+      <option>Bmw</option>
+      <option>Chevrolet</option>
+      <option>Fiat</option>
+      <option>Ford</option>
+      <option>Honda</option>
+      <option>Hyundai</option>
+      <option>Jeep</option>
+      <option>Kia</option>
+      <option>Mercedes-Bens</option>
+      <option>Renault</option>
+      <option>Volkswagen</option>
+  </select>
+      <input type="submit" value="Procurar">
+  </form>
+  </section> 
+  <section>
+  <div>
+      <center><h2>Seu Carro Favorito</h2></center>
+  <?php 
+  $SelectCar -> SearchMarca($Search, $Marca, $Conecta); 
+  $SelectCar -> MostraCarroSelecionado($Conecta);
+  ?>
+  <div>
+    <h1><?php  $SelectCar -> VerificaSeExisteCarroSelecionado(); ?></h1>
+  </div>
+  </div>
+  </section>
 </main>
 </body>
 </html>
