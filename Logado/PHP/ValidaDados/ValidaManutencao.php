@@ -1,9 +1,9 @@
 <?php
-include_once("PHP/Get/GetDadosInputManutencao.php");
-class GetDados extends GetDadosInput{
+include_once("PHP/Get/GetCadastroManutencao.php");
+class GetDados extends GetCadastroManutencao{
    public  $GetDados;
     public function __construct() {
-        $this->GetDados = new GetDadosInput(); 
+        $this->GetDados = new GetCadastroManutencao(); 
     }
 }
 
@@ -32,7 +32,7 @@ class ValidaCadastroManutencao extends GetDados{
         }
     }
     public function PecaValidado(){
-      if(isset($this->PecaValidado) && $this->PecaValidado == true){
+      if($this->PecaValidado == true){
           return true;
       }else{
         return false;
@@ -73,7 +73,7 @@ class ValidaCadastroManutencao extends GetDados{
          }
     }
     public function ValorPecaValidado(){
-      if(isset($this-> ValorPeca) && $this-> ValorPeca == true){
+      if($this-> ValorPeca == true){
         return true;
       }else{
         return false;
@@ -92,7 +92,7 @@ class ValidaCadastroManutencao extends GetDados{
       }
     }
     public function MaodeObraValidado(){
-      if(isset( $this->MaoDeObraValidado) && $this->MaoDeObraValidado == true){
+      if($this->MaoDeObraValidado == true){
         return true;
       }else{
         return false;
@@ -131,7 +131,7 @@ class ValidaCadastroManutencao extends GetDados{
         }
     }
     public function DataValidado(){
-      if(isset($this->DataManutencaoValidado) && $this->DataManutencaoValidado == true){
+      if($this->DataManutencaoValidado == true){
         return true;
       }else{
         return false;

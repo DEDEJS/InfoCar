@@ -1,14 +1,36 @@
 <?php
-include_once("PHP/Get/GetCadastro.php");
+include_once("../PHP/Get/GetDadosInput.php");
+class CarInputHandler {
+    private function getInput($key) {
+        return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
+    }
 
-$Placa = $GetCadastro -> GetPlaca();
-$Marca = $GetCadastro -> GetMarca();
-$Modelo = $GetCadastro -> GetModelo();
-$MeuCarro = $GetCadastro -> GetMeuCarro();
-$Quilometragem = $GetCadastro -> GetQuilometragem();
-class ValidaCadastro{
+    public function getLicensePlate() { return $this->getInput('Placa'); }
+    public function getBrand() { return $this->getInput('Marca'); }
+    public function getModel() { return $this->getInput('Modelo'); }
+    public function getMyCar() { return $this->getInput('MeuCarro'); }
+    public function getMileage() { return $this->getInput('Quilometragem'); }
+    public function getPrivacy() { return $this->getInput('Privacidade'); }
+    public function getMaintenanceType() { return $this->getInput('tipo'); }
+    public function getPart() { return $this->getInput('Peca'); }
+    public function getPartCode() { return $this->getInput('PecaCodigo'); }
+    public function getManufacturerCode() { return $this->getInput('PecaFabricante'); }
+    public function getPartPrice() { return $this->getInput('ValorPeca'); }
+    public function getPartQuantity() { return $this->getInput('QuantidadePeca'); }
+    public function getLaborCost() { return $this->getInput('MaoDeObra'); }
+    public function getWorkshop() { return $this->getInput('LocalManutencao'); }
+    public function getDate() { return $this->getInput('Data'); }
+    public function getNextMaintenanceDate() { return $this->getInput('DataProximaManutencao'); }
+    public function getCurrentMileage() { return $this->getInput('QuilometragemAtual'); }
+    public function getObservation() { return $this->getInput('observacao'); }
+    public function getServiceType() { return $this->getInput('TipoServico'); }
+    public function getStatus() { return $this->getInput('Status'); }
+}
+
+
+class CarValidator extends CarInputHandler{
   private $MarcaSelecionada;
-  private $PlacaValidada;
+  private $LicensePlate;
   private $MarcaValidada;
   private $MeuCarroValidado;
   private $QuilometragemValidado;
@@ -26,24 +48,27 @@ class ValidaCadastro{
   private $ArrayJeep;
   private $ArrayKia;
   private $ArrayMercedes;
-  public function ValidaPlaca($Placa){
-    $Placa = strtoupper(str_replace(['-', ' '], '', $Placa));
-      if(strlen($Placa)<=6 || strlen($Placa) >=8){
+
+  public function ValidateLicensePlate(){
+    $LicensePlate = $this-> getLicensePlate();
+    $LicensePlate = strtoupper(str_replace(['-', ' '], '', $LicensePlate));
+      if(strlen($LicensePlate)<=6 || strlen($LicensePlate) >=8){
              echo "Placa Inválida";
-      }else  if (!preg_match('/^[A-Z]{3}[0-9]{4}$/', $Placa) &&  !preg_match('/^[A-Z]{3}[0-9][A-Z][0-9]{2}$/', $Placa)) {
+      }else  if (!preg_match('/^[A-Z]{3}[0-9]{4}$/', $LicensePlate) &&  !preg_match('/^[A-Z]{3}[0-9][A-Z][0-9]{2}$/', $LicensePlate)) {
         echo "Placa Inválida";
     } else{ 
-         $this->PlacaValidada = true;
+         $this->LicensePlate = true;
       }
   }
   public function PlacaValidado(){
-     if($this->PlacaValidada == true){
+     if($this->LicensePlate == true){
           return true;
      }else{
       return false;
      }
   }
-    public function ValidaMarca($Marca){
+    public function ValidateBrand(){
+      $Marca = $this-> getBrand();
         $ArrayMarca = array (
             "---",
             "Audi",
@@ -68,7 +93,7 @@ class ValidaCadastro{
         $this-> Search = false;
         }else{
          foreach($ArrayMarca as $Marcas){
-          if($Marcas === $Marca ){
+          if($Marcas === $Marca){
                $this-> MarcaSelecionada = $Marcas;
                $this->MarcaValidada = true;
                $this-> Search = true;
@@ -85,7 +110,7 @@ class ValidaCadastro{
         return true;
        }
      }
-public function Modelos(){
+public function Model(){
       $this-> ArrayAudi  = array (
         "<option>A1</option>",
         "<option>A3</option>",
@@ -364,26 +389,26 @@ public function Modelos(){
         "<option>Voyage</option>"
       );
       }
-     public function ValidaMeuCarro($MeuCarro){
+     public function ValidateMyCar(){
+      $MyCar = $this->getMyCar();
       $ArrayMeuCarro = array (
        "---",
        "Adicionar Ao Meu Carro",
        "Não Adicionar Ao Meu Carro"
       );
-      if($MeuCarro == $ArrayMeuCarro[0]){
+      if($MyCar == $ArrayMeuCarro[0]){
         echo "Escolha Uma Opção";
-      }else if($MeuCarro == $ArrayMeuCarro[1]){//A = adicionar ao meu carro
+      }else if($MyCar == $ArrayMeuCarro[1]){//A = adicionar ao meu carro
         return $this->MeuCarroValidado = true;
-      }else if($MeuCarro == $ArrayMeuCarro[2]){//N = Não adiona ao meu carro
+      }else if($MyCar == $ArrayMeuCarro[2]){//N = Não adiona ao meu carro
         return [$this->MeuCarroValidado = true];
-      }else{
-        echo "Error";
       }
      }
-     public function ValidaQuilometragem($Quilometragem){
-        if(!is_numeric($Quilometragem)){
+     public function ValidateMileage(){
+       $Mileage = $this-> getMileage();
+        if(!is_numeric($Mileage)){
             echo "Quilometragem Inválida";
-        }else if(strlen($Quilometragem)>=8){
+        }else if(strlen($Mileage)>=8){
         echo "Quilometragem Inválida";
         }else{
           return $this-> QuilometragemValidado = true;
@@ -468,9 +493,21 @@ public function ImprimeValores(){
         //  echo "certo";
         }
       }
-public function ValidaModelos($Modelo){
-      if($Modelo == "Outro Modelo"){
+public function ValidateModel(){
+       $Model = $this-> getModel();
+      if($Model == "Outro Modelo"){
          echo "Escolha Um Modelo Válido";
+      }
+}
+public function ValidatePrivacy(){
+      $Privacy = $this-> getPrivacy();
+      $ArrayPrivacy = array (
+        "---",
+        "Sim",
+        "Não"
+      );
+      if($Privacy == $ArrayPrivacy[0]){
+         echo "Escolha Uma Opção";
       }
 }
 public function HeaderCadastro($Placa,$Marca,$Modelo,$MeuCarro,$Quilometragem){
@@ -484,5 +521,5 @@ public function HeaderCadastro($Placa,$Marca,$Modelo,$MeuCarro,$Quilometragem){
        }
 }
  }
-$ValidaCadastro = new ValidaCadastro();
+$CarValidator = new CarValidator();
 ?>

@@ -48,7 +48,7 @@ $Campos['DataProximaManutencao'] = "
   </div>
 ";
 $Campos['Quilometragem'] =  "
-  <div class='QuilometragemAtual' id=''>
+  <div class='QuilometragemAtual' id='QuilometragemDiv'>
     <h3>Quilometragem Atual Do Carro <span> *</span></h3>
     <p class='error'>{$ValidaCadastroManutencao->ValidaQuilometragem()}</p>
     <input type='number' placeholder='Quilometragem' name='Quilometragem' id='Quilometragem'>

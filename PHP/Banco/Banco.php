@@ -16,5 +16,5 @@ class Banco_DB{
       } 
     }
     $Banco = new Banco_DB();
-    $Conecta = $Banco -> conecta();
+    $Connection = $Banco -> conecta();
 ?>

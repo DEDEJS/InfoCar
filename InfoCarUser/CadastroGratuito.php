@@ -50,14 +50,14 @@ session_start();
       <h1>Cadastro Gratuito</h1>
       <p>Crie sua conta e comece a usar o InfoCar gratuitamente</p>
       <form action="#" method="post" class="form-cadastro" onclick="return ValidaCadastroGratuito();">
-        <label for="nome">Nome completo <span id="ErrorNome"><?php $ValidaDados -> ValidaNome(); ?></span></label>
-        <input type="text" id="nome" name="nome" placeholder="Nome:" value="<?php $Value -> ValueNome(); ?>">
-        <label for="cpf">CPF <span id="ErrorCpf"><?php $ValidaDados -> ValidaCpf(); ?></span></label>
-        <input type="text" id="cpf" name="cpf" placeholder="Ex: 55555555555" max="11" value="<?php $Value -> ValueCpf(); ?>">
-        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidaDados -> ValidaEmail(); ?></span></label>
-        <input type="email" id="email" name="email" placeholder="Email:" value="<?php $Value -> ValueEmail(); ?>">
-        <label for="senha">Senha <span id="ErrorSenha"><?php $ValidaDados -> ValidaSenha(); ?></span></label>
-         <div class="input-wrapper" onclick="return ShowPassword();">  
+        <label for="nome">Nome completo <span id="ErrorNome"><?php $ValidateForm -> ValidateName(); ?></span></label>
+        <input type="text" id="nome" name="nome" placeholder="Nome:" value="<?php ValueDisplay::showName(); ?>">
+        <label for="cpf">CPF <span id="ErrorCpf"><?php $ValidateForm -> ValidateCpf(); ?></span></label>
+        <input type="text" id="cpf" name="cpf" placeholder="Ex: 55555555555" max="11" value="<?php ValueDisplay::showCpf(); ?>">
+        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidateForm -> ValidateEmail(); ?></span></label>
+        <input type="email" id="email" name="email" placeholder="Email:" value="<?php ValueDisplay::showEmail(); ?>">
+        <label for="senha">Senha <span id="ErrorSenha"><?php $ValidateForm -> ValidatePassword(); ?></span></label>
+         <div class="input-wrapper" onclick="return ShowPassword();" value="<?php ValueDisplay::showPassword(); ?>">  
           <input type="password" id="senha" name="senha" placeholder="Senha: ">
           <!-- Ícone olho -->
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -68,12 +68,11 @@ session_start();
               <circle cx="12" cy="12" r="3"/>
             </svg>
       </div>
-        <label for="telefone">Telefone  <span id="ErrorTelefone"><?php $ValidaDados -> ValidaTelefone(); ?></span></label>
-        <input type="tel" id="telefone" name="telefone"  placeholder="(11) 99999-9999" value="<?php $Value -> ValueTelefone(); ?>"><!-- pattern="\(\d{2}\) \d{4,5}-\d{4}" -->
+        <label for="telefone">Telefone  <span id="ErrorTelefone"><?php $ValidateForm -> ValidatePhone(); ?></span></label>
+        <input type="tel" id="telefone" name="telefone"  placeholder="(11) 99999-9999" value="<?php ValueDisplay::showPhone(); ?>"><!-- pattern="\(\d{2}\) \d{4,5}-\d{4}" -->
         <button type="submit" class="btn-primary" value="button" name="button" id="button">Criar Conta</button>
         <?php 
-        $ValidaDados -> VerificaCadastroProEGratuito();
-        $ValidaDados -> InsertGratuito();
+        $Insert -> insertFree();
         ?>
       </form>
       <p class="info">Ao criar sua conta, você estará automaticamente no plano gratuito.</p>

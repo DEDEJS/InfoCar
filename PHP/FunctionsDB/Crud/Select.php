@@ -226,26 +226,33 @@ class SelectMaintenance{
 }
 $SelectCar = new SelectCar(); 
 $SelectMaintenance = new SelectMaintenance();
-class SelectLogin {
-    public function SelectLogin($Conecta, $email, $senha) {
-      $Query = $Conecta->prepare("SELECT  Email, Senha, TipoCadastro FROM UserLogin  WHERE Email = :Email AND Senha = :Senha");
-      $Query->bindParam(':Email', $email);
-      $Query->bindParam(':Senha', $senha);
-      $Query->execute();
-           if ($Query->rowCount() > 0) {
-            echo 'logar';
-            $TipoLogin = $Query->fetch(PDO::FETCH_ASSOC);
-            /* Criar as sessions e usar a váriavel TipoLogin para diferenciar os usuários */
+class LoginSelector {
+    public function selectLogin($Connection, $email, $password) {
+        $query = $Connection->prepare(
+            "SELECT Email, Senha, TipoCadastro 
+             FROM UserLogin  
+             WHERE Email = :Email AND Senha = :Senha"
+        );
+        $query->bindParam(':Email', $email);
+        $query->bindParam(':Senha', $password);
+        $query->execute();
+
+        if ($query->rowCount() > 0) {
+            echo 'Logar';
+            $loginType = $query->fetch(PDO::FETCH_ASSOC);
+            /* Create sessions and use the loginType variable to differentiate users */
         } else {
-            echo 'Email ou Senha Inválido';
+            echo 'Email Ou Senha Inválido';
         }
     }
 }
+
+
 class VerificaSeExisteDadosCadastrados{
-    public function VerificaCPF($CPF, $Conecta){
+    public function VerificaCPF($CPF, $Connection){
        if($CPF != null){
         $SQLCPF = "SELECT  cpf FROM user WHERE cpf = :CPF LIMIT 1";
-        $QueryCPF = $Conecta->prepare($SQLCPF);
+        $QueryCPF = $Connection->prepare($SQLCPF);
         $QueryCPF->bindParam(':CPF', $CPF, PDO::PARAM_STR);
         $QueryCPF->execute();
         $UsuarioEncontrado = $QueryCPF->fetch(PDO::FETCH_ASSOC);
@@ -254,10 +261,10 @@ class VerificaSeExisteDadosCadastrados{
       } else {return true;}
       }
     }
-    public function VerificaCNPJ($CNPJ, $Conecta){
+    public function VerificaCNPJ($CNPJ, $Connection){
       if($CNPJ != null){
          $SQLCNPJ = "SELECT cnpj FROM empresa WHERE cnpj = :CNPJ";
-         $QueryCNPJ = $Conecta->prepare($SQLCNPJ);
+         $QueryCNPJ = $Connection->prepare($SQLCNPJ);
          $QueryCNPJ->bindParam(':CNPJ', $CNPJ, PDO::PARAM_STR);
          $QueryCNPJ->execute();
          $CNPJEncontrado = $QueryCNPJ->fetch(PDO::FETCH_ASSOC);
@@ -266,10 +273,10 @@ class VerificaSeExisteDadosCadastrados{
       } else {return true;}
       }
     }
-    public function VerificaEmail($Email, $Conecta){ 
+    public function VerificaEmail($Email, $Connection){ 
         if($Email != null){
            $SQLEMAIL = "SELECT Email FROM emailusuarios WHERE Email = :Email LIMIT 1";
-           $QueryEmail = $Conecta->prepare($SQLEMAIL);
+           $QueryEmail = $Connection->prepare($SQLEMAIL);
            $QueryEmail->bindParam(':Email', $Email, PDO::PARAM_STR);
            $QueryEmail->Execute();
            $EmailEncontrado = $QueryEmail->fetch(PDO::FETCH_ASSOC);

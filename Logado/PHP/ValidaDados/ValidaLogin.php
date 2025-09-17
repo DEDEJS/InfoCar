@@ -51,7 +51,7 @@ class ValidaLogin extends GetLogin{
        return $this->senha = true;
     }
    }
-  /* public function ValidaSelect(){
+   public function ValidaSelect(){
      $Select = $this->GetSelect();
      $Array_Select = array("---","Empresarial","Gratuito","Pro");
      if($Select == $Array_Select[0]){
@@ -61,17 +61,15 @@ class ValidaLogin extends GetLogin{
      }else{
         return [$this->select = true, $Select];
      }
-   }*/
+   }
      public function VerificaLogin(){
-      if($this->email == true && $this->senha == true ){
+      if($this->email == true && $this->senha == true && $this->select == true){
             include_once("Logado/PHP/FunctionsDB/Crud/Select.php");
             include_once("Logado/PHP/Banco/Banco.php");
             $SelectLogin = new SelectLogin();
             $email = $this-> GetEmail();
             $senha = $this-> GetSenha();
-            $SelectLogin -> SelectLogin($Conecta, $email, $senha);
-
-           /* $select = $this->GetSelect();
+            $select = $this->GetSelect() ;
             if($this->GetSelect() == "Empresarial" && $this->GetSelect() != "---"){
             $SelectLogin -> SelectLoginEmpresarial($Conecta, $email, $senha, $select);
             }else if($this->GetSelect() == "Gratuito" && $this->GetSelect() != "---"){
@@ -80,7 +78,7 @@ class ValidaLogin extends GetLogin{
                $SelectLogin -> SelectLoginPro($Conecta, $email, $senha, $select);
             }else{
                return false;
-            }*/
+            }
             
       }
     } 

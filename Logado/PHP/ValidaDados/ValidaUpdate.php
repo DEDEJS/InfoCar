@@ -42,77 +42,67 @@ $GetUrlAlterar = new GetUrlAlter();
 $Alterar = $GetUrlAlterar -> GetAlterarUrl();
 $IdAlterarManutencao = $GetUrlAlterar -> GetAlterarIdUrlManutencao();
 $IdAlterarCarro = $GetUrlAlterar -> GetAlterarIdUrlCarro();
-class ShowInput extends GetDados {
-     public $Dados;
-  public function __construct() {
-       return $this->Dados = new GetDadosInput(); 
-    }
-
-    public function Input($Alterar,$ValidaCadastroManutencao,$ValidaCadastro,$Quilometragem){        
-        $Placa = $this->Dados -> GetPlaca();
-        $Peca = $this->Dados -> GetPeca();
-        $ValorPeca = $this -> GetValorPeca();
-        $MaoDeObra = $this->Dados -> GetMaoDeObra();
-        $Data = $this->Dados -> GetData();
+class ShowInput{
+    public function Input($Alterar,$ValidaCadastroManutencao,$ValidaCadastro,$Placa,$Peca,$ValorPeca,$MaoDeObra,$Quilometragem,$Data){        
         switch($Alterar){
           case "Placa":
             echo '
             <h3>Alterar A Placa</h3>
-           <label for="Placa"> <span class="error">';
+            <p class="error">';
             $ValidaCadastro->ValidaPlaca($Placa);
-             echo'</span></label>
+             echo'</p>
       <input type="text" placeholder="Alterar Placa:" name="Placa" id="Placa">
-      <button type="submit" class="btn-primary">Alterar</button>
+      <input type="submit" value="Alterar"> 
             ';
             break;
             case "Peca":
                 echo '
                 <h3>Alterar A Peça</h3>
-                <label for="Peca"><span class="error">';
+                <p class="error">';
                 $ValidaCadastroManutencao -> ValidaPecaManutencao($Peca);
-                echo' </span></label>
-                <input type="text" placeholder="Alterar A Peça:" name="Peca" id="Peca">
-                <button type="submit" class="btn-primary">Alterar</button>
+                echo' </p>
+          <input type="text" placeholder="Alterar A Peça:" name="Peca" id="Peca">
+           <input type="submit" value="Alterar"> 
                 ';
             break;
             case "ValorPeca":
                 echo '
-                <h3>Alterar O Valor Da Peça</h3>
-                <label for="ValorPeca"> <span class="error">';
+                 <h3>Alterar O Valor Da Peça</h3>
+                <p class="error">';
                 $ValidaCadastroManutencao -> ValidaValorPeca($ValorPeca);
-                echo '</span></label>
-                <input type="number" placeholder="Alterar Valor Da Peça" name="ValorPeca" id="ValorPeca" >
-                <button type="submit" class="btn-primary">Alterar</button>
+                echo ' </p>
+          <input type="number" placeholder="Alterar Valor Da Peça" name="ValorPeca" id="ValorPeca" >
+           <input type="submit" value="Alterar"> 
                 ';
             break;
             case "ValorMaoDeObra":
                 echo' 
-                <h3>Alterar O Valor Da Mão De Obra</h3>
-                <label for="MaoDeObra"><span class="error">';
+                 <h3>Alterar O Valor Da Mão De Obra</h3>
+                        <p class="error">';
                 $ValidaCadastroManutencao -> ValidaMaoDeObra($MaoDeObra);
-                echo' </span></label>
+                echo' </p>
           <input type="number" placeholder="Alterar Valor Da Mão De Obra" name="MaoDeObra" id="MaoDeObra" >
-                 <button type="submit" class="btn-primary">Alterar</button>
+           <input type="submit" value="Alterar"> 
                 ';
             break;
             case "Kilometragem":
                 echo '
-                <h3>Alterar A Kilometragem</h3>
-                <label for="Quilometragem"><span class="error">';
+                 <h3>Alterar A Kilometragem</h3>
+                   <p class="error">';
                         $ValidaCadastro -> ValidaQuilometragem($Quilometragem);
-                echo' </span></label>
-                <input type="number" placeholder="Alterar a Quilometragem" name="Quilometragem" id="Quilometragem" >
-                 <button type="submit" class="btn-primary">Alterar</button>
+                echo' </p>
+          <input type="number" placeholder="Alterar a Quilometragem" name="Quilometragem" id="Quilometragem" >
+           <input type="submit" value="Alterar"> 
                 ';
             break;
             case "Data":
                 echo '
                  <h3>Alterar A Data</h3>
-                 <label for="Data"><span class="error"> ';
+                 <p> ';
                  $ValidaCadastroManutencao -> ValidaDataManutencao($Data);
-                 echo'</span></label>
-                 <input type="date" name="Data" id="Data">
-                 <button type="submit" class="btn-primary">Alterar</button>
+                 echo'</p>
+        <input type="date" name="Data" id="Data">
+           <input type="submit" value="Alterar"> 
                 ';
             break;
          }
