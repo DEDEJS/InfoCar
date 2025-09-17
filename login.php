@@ -49,11 +49,11 @@ include_once("PHP/ValidaDados/ValidaForm.php");
     <div class="container">
       <h1>Login</h1>
       <form action="#" method="post" class="form-login" onclick="return ValidaLogin();">
-        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidaDados -> ValidaEmail();?></span></label>
-        <input type="email" id="email" name="email" placeholder="Email:" value="<?php $Value -> ValueEmail();?>">
-        <label for="senha">Senha <span id="ErrorSenha"><?php  $ValidaDados-> ValidaSenha();?></span></label>
+        <label for="email">E-mail <span id="ErrorEmail"><?php $ValidateForm -> ValidateEmail();?></span></label>
+        <input type="email" id="email" name="email" placeholder="Email:" value="<?php ValueDisplay::showEmail(); ?>">
+        <label for="senha">Senha <span id="ErrorSenha"><?php  $ValidateForm-> validatePasswordLogin();?></span></label>
         <div class="input-wrapper" onclick="return ShowPassword();">
-        <input type="password" id="senha" name="senha"  placeholder="Senha: " value="<?php $Value -> ValueSenha();?>">
+        <input type="password" id="senha" name="senha"  placeholder="Senha: " value="<?php ValueDisplay::showPassword(); ?>">
           <!-- Ícone olho -->
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
               viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -65,7 +65,7 @@ include_once("PHP/ValidaDados/ValidaForm.php");
       </div>
         <button type="submit" class="btn-primary" name="button" id="button">Logar</button>
         <span><?php
-        $ValidaDados -> VerificaLoginSeDadosForamDigitados(); 
+        $ValidateForm -> checkLoginIfDataProvided(); 
         ?></span>
         <p>Novo aqui? <a href="http://localhost/Projects/InfoCarPage/#plans" target="_blank">Escolha um plano</a></p>
       </form>
