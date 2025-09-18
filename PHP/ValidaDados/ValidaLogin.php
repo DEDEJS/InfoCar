@@ -1,15 +1,14 @@
 <?php
 ini_set('default_charset','UTF-8');
-
-class ValidaLogin  {
-     public function VerificaLogin($email, $senha){
+class ValidateLogin  {
+     public function checkLogin($email, $senha){
             include_once("PHP/FunctionsDB/Crud/Select.php");
             include_once("PHP/Banco/Banco.php");
-            $SelectLogin = new SelectLogin();
+            $SelectLogin = new LoginSelector();
            
-            $SelectLogin -> SelectLogin($Conecta, $email, $senha);      
+            $SelectLogin -> SelectLogin($Connection, $email, $senha);      
     } 
 
 
  }
-$ValidaLogin = new ValidaLogin();
+$ValidateLogin = new ValidateLogin();

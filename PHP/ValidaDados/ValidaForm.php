@@ -1,306 +1,329 @@
 <?php
 ini_set('default_charset','UTF-8');
 date_default_timezone_set('America/Sao_Paulo');
-class GetDados{
-     public function GetNome(){
-        if(isset($_POST['nome'])){
-            return htmlspecialchars($_POST['nome']);
-        }
-    }
-    public function GetCnpj(){
-        if(isset($_POST['cnpj'])){
-            return htmlspecialchars($_POST['cnpj']);
-        }
-    }
-    public function GetEndereco(){
-          if(isset($_POST['endereco'])){
-            return htmlspecialchars($_POST['endereco']);
-        }
-    }
-     public function GetNumeroEndereco(){
-          if(isset($_POST['numero'])){
-            return htmlspecialchars($_POST['numero']);
-        }
-    }
-     public function GetCpf(){
-       if(isset($_POST['cpf'])){
-            return htmlspecialchars($_POST['cpf']);
-        }
-    }
-    public function GetEmail(){
-       if(isset($_POST['email'])){
-            return htmlspecialchars($_POST['email']);
-        }
-    }
-  
-       public function GetSenha(){
-       if(isset($_POST['senha'])){
-            return htmlspecialchars($_POST['senha']);
-        }
-    }
-    public function GetTelefone(){
-       if(isset($_POST['telefone'])){
-            return htmlspecialchars($_POST['telefone']);
-        }
+class InputHandler {
+    public static function get(string $key): ?string {
+        return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
     }
 }
-class DadosValueInput extends GetDados{
-    public $Value;
-    public function __construct(){
-        $this-> Value = new GetDados();
+class ValueDisplay {
+    public static function show(string $field) {
+        echo InputHandler::get($field);
     }
-   
-    public function ValueNome(){
-        echo $this->Value -> GetNome();
-    }
-    public function ValueEmail(){
-        echo $this->Value -> GetEmail();
-    }
-   public function ValueSenha(){
-        echo $this->Value -> GetSenha();
-   }
-    public function ValueCpf(){
-        echo $this->Value -> GetCpf();
-    } 
-    public function ValueCnpj(){
-        echo $this->Value -> GetCnpj();
-    }   
-    public function ValueEndereco(){
-        echo $this->Value -> GetEndereco();
-    }
-    public function ValueNumeroEndereco(){
-        echo $this->Value -> GetNumeroEndereco();
-    }
-    public function ValueTelefone(){
-        echo $this->Value -> GetTelefone();
-    }    
-    
-}
-$Value = new DadosValueInput();
-class ValidaDados extends GetDados{
-    public $GetDados;
-    public $Nome;
-    public $CPF;
-    public $CNPJ;
-    public $Email;
-    public $Senha;
-    public $Endereco;
-    public $EnderecoNumero;
-    public $Telefone;
-    public $NomeValue;
-    public $CPFValue;
-    public $CNPJValue;
-    public $EmailValue;
-    public $SenhaValue;
-    public $TelefoneValue;
-    public $EnderecoValue;
-    public $EnderecoNumeroValue;
 
-    public $Validado;
- public function __construct(){
-    $this-> GetDados = new GetDados();
- }
- public function ValidaNome(){
-    $nome = $this-> GetDados -> GetNome();
-   if(isset($_POST['button']) == true){
-        if(strlen($nome)<=2 || strlen($nome) >= 50){
-            echo "Nome Inválido";
-        }else if(!preg_match("/^[\p{L} ]+$/u", $nome)){
-            echo "Nome Inválido";
-        }else{
-            return [$this-> Nome = true,$this->NomeValue =  $nome];
+    public static function showName() {
+        self::show('nome');
+    }
+
+    public static function showCnpj() {
+        self::show('cnpj');
+    }
+
+    public static function showAddress() {
+        self::show('endereco');
+    }
+
+    public static function showAddressNumber() {
+        self::show('numero');
+    }
+
+    public static function showCpf() {
+        self::show('cpf');
+    }
+
+    public static function showEmail() {
+        self::show('email');
+    }
+
+    public static function showPassword() {
+        self::show('senha');
+    }
+
+    public static function showPhone() {
+        self::show('telefone');
+    }
+}
+class ValidateData {
+    // Flags de validação
+    public $nameValid = false;
+    public $cpfValid = false;
+    public $cnpjValid = false;
+    public $emailValid = false;
+    public $passwordValid = false;
+    public $phoneValid = false;
+    public $addressValid = false;
+    public $addressNumberValid = false;
+
+    // Valores sanitizados
+    public $nameValue;
+    public $cpfValue;
+    public $cnpjValue;
+    public $emailValue;
+    public $passwordValue;
+    public $phoneValue;
+    public $addressValue;
+    public $addressNumberValue;
+
+    public $validated = false;
+
+    // -------------------
+    // Validation Methods
+    // -------------------
+
+    public function validateName() {
+        $name = InputHandler::get('nome');
+        if(isset($_POST['button'])) {
+            if(strlen($name) <= 2 || strlen($name) >= 50 || !preg_match("/^[\p{L} ]+$/u", $name)) {
+                echo "Nome Inválido";
+            } else {
+                $this->nameValid = true;
+                $this->nameValue = $name;
+                return true;
+            }
         }
-     }
- } 
-function validaCnpj() {
-    $cnpj = $this->GetDados->GetCNPJ();
-    $cnpj = preg_replace('/\D/', '', $cnpj);
-    if(isset($_POST['button']) == true){
-        if(strlen($cnpj) != 14) {
-            echo "CNPJ Inválido";
-            return false;
-        }else if (preg_match('/(\d)\1{13}/', $cnpj)) {
-            echo "CNPJ Inválido";
-            return false;
-        }else {
-            for ($t = 12; $t < 14; $t++) {
-                $d = 0;
-                for ($m = $t - 7, $i = 0; $i < $t; $i++) {
-                    $d += $cnpj[$i] * $m;
-                    $m--;
-                    if ($m < 2) {
-                        $m = 9;
+    }
+
+    public function validateCpf() {
+        $cpf = InputHandler::get('cpf');
+        $cpfClean = preg_replace('/\D/', '', $cpf);
+        if(isset($_POST['button'])) {
+            if(strlen($cpfClean) != 11 || preg_match('/(\d)\1{10}/', $cpfClean)) {
+                echo "CPF Inválido";
+                return false;
+            } else {
+                $this->cpfValid = true;
+                $this->cpfValue = $cpfClean;
+                return true;
+            }
+        }
+    }
+
+    public function validateCnpj() {
+        $cnpj = InputHandler::get('cnpj');
+        $cnpj = preg_replace('/\D/', '', $cnpj);
+        if(isset($_POST['button'])) {
+            if(strlen($cnpj) != 14 || preg_match('/(\d)\1{13}/', $cnpj)) {
+                echo "CNPJ Inválido";
+                return false;
+            } else {
+                // cálculo dos dígitos verificadores
+                for ($t = 12; $t < 14; $t++) {
+                    $d = 0;
+                    for ($m = $t - 7, $i = 0; $i < $t; $i++) {
+                        $d += $cnpj[$i] * $m;
+                        $m--;
+                        if($m < 2) $m = 9;
+                    }
+                    $digit = ((10 * $d) % 11) % 10;
+                    if ((int)$cnpj[$t] !== $digit) {
+                        echo "CNPJ Inválido";
+                        return false;
                     }
                 }
-                $digito = ((10 * $d) % 11) % 10;
-                if ((int)$cnpj[$t] !== $digito) {
-                    echo "CNPJ Inválido";
-                    return false;
-                }
-            }        
-            return [$this->CNPJ = true, $this->CNPJValue = $cnpj];
-    }
-    }
-}
-  public function ValidaEndereco(){
-    $endereco = $this-> GetDados -> GetEndereco();
-        if(isset($_POST['button']) == true){
-        if(strlen($endereco) <= 1){
-        echo "Endereço Inválido";
-        }else{
-            return [$this->Endereco = true, $this->EnderecoValue = $endereco];
-        } 
-    }
-  }
-  public function ValidaNumeroEndereco(){
-    $NumeroEndereco = $this-> GetDados -> GetNumeroEndereco();
-        if(isset($_POST['button']) == true){
-        if(strlen($NumeroEndereco) <= 0){
-        echo "Preenche o Campo";
-        }else if(!is_numeric($NumeroEndereco)){
-        echo "Número Inválido";
-        }else{
-            return [$this->EnderecoNumero = true, $this->EnderecoNumeroValue = $NumeroEndereco];
+                $this->cnpjValid = true;
+                $this->cnpjValue = $cnpj;
+                return true;
+            }
         }
-     }
-}
-public function validaCpf(){
-    $cpf = $this-> GetDados -> GetCpf();
-    $cpfValidado = preg_replace('/\D/', '', $cpf);
-    if(isset($_POST['button']) == true){
-        if (strlen($cpfValidado) != 11 || preg_match('/(\d)\1{10}/', $cpfValidado)) {
-            echo "CPF Inválido";
+    }
+
+    public function validateEmail() {
+        $email = InputHandler::get('email');
+        if(isset($_POST['button'])) {
+            if(strlen($email) <= 0) {
+                echo "Preenche o Campo Email";
+            } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "Email Inválido";
+            } else {
+               $this->emailValid = true;   
+                $this->emailValue = $email;
+                return true;
+            }
+        }
+    }
+    public function validatePasswordLogin(){
+         $password = InputHandler::get('senha');
+        if(isset($_POST['button'])) {
+            if(strlen($password) <= 6 || strlen($password) > 31) {
+                echo "Senha Inválida";
+            } else {
+                $this->passwordValid = true;
+                $this->passwordValue = $password;
+                return true;
+            }
+        }
+    }
+    public function validatePassword() {
+        $password = InputHandler::get('senha');
+        if(isset($_POST['button'])) {
+            if(strlen($password) <= 6 || strlen($password) > 20) {
+                echo "A Senha deve ter entre 7 e 20 caracteres";
+            } else {
+                $this->passwordValid = true;
+                $this->passwordValue = $password;
+                return true;
+            }
+        }
+    }
+
+    public function validatePhone() {
+        $phone = InputHandler::get('telefone');
+        if(isset($_POST['button'])) {
+            if(!preg_match("/^(\d{10}|\d{11})$/", $phone)) {
+                echo "Telefone Inválido";
+            } else {
+                $this->phoneValid = true;
+                $this->phoneValue = $phone;
+                return true;
+            }
+        }
+    }
+
+    public function validateAddress() {
+        $address = InputHandler::get('endereco');
+        if(isset($_POST['button'])) {
+            if(strlen($address) <= 1) {
+                echo "Endereço Inválido";
+            } else {
+                $this->addressValid = true;
+                $this->addressValue = $address;
+                return true;
+            }
+        }
+    }
+
+    public function validateAddressNumber() {
+        $number = InputHandler::get('numero');
+        if(isset($_POST['button'])) {
+            if(strlen($number) <= 0 || !is_numeric($number)) {
+                echo "Número Inválido";
+            } else {
+                $this->addressNumberValid = true;
+                $this->addressNumberValue = $number;
+                return true;
+            }
+        }
+    }
+
+    // -------------------
+    // Registration Checks
+    // -------------------
+public function checkLoginIfDataProvided() {
+
+        if($this->emailValid == true  && $this->passwordValid == true) {
+            $email = InputHandler::get('email');
+            $password = InputHandler::get('senha');
+            include_once("ValidaLogin.php");
+            $ValidateLogin->checkLogin($email, $password);
+        }
+    }
+    public function checkFreeOrProRegistration() {
+        if($this->nameValid && $this->cpfValid && $this->emailValid && $this->passwordValid && $this->phoneValid) {
+            $this->validated = true;
+            return true;
+        } else {
+            echo "<span>Preencha os campos restantes</span>";
             return false;
-        }else{ 
-            return  [$this-> CPF = true, $this->CPFValue = $cpfValidado];  
         }
-     }
-     }
- public function ValidaEmail(){
-    $email = $this-> GetDados -> GetEmail();
-    if(isset($_POST['button']) == true){
-        if(strlen($email)<= 0){
-        echo "Preenche o Campo Email";
-        }else if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-        echo "Email Inválido";
-        }else{
-        return [$this->Email = true, $this->EmailValue = $email];
-        }
-     }
- }
+    }
 
-
- public function ValidaSenha(){
-    $senha = $this-> GetDados -> GetSenha();
-    if(isset($_POST['button']) == true){
-        if(strlen($senha)<=0){
-        echo "Preenche o campo Senha";
-        }else if(strlen($senha) <=6){
-        echo "A Senha deve ter entre 7 e 20 caracteres";
-        }else if(strlen($senha) >= 21){
-        echo "A Senha deve ter entre 7 e 20 caracteres";
-        }else{
-        return [$this->Senha = true, $this->SenhaValue = $senha];
+    public function checkEnterpriseRegistration() {
+        if($this->nameValid && $this->cnpjValid && $this->addressValid && $this->addressNumberValid &&
+           $this->emailValid && $this->passwordValid && $this->phoneValid) {
+            $this->validated = true;
+            return true;
+        } else {
+            return false;
         }
     }
- }
- public function ValidaTelefone(){
-   $telefone = $this-> GetDados -> GetTelefone();
-   if(isset($_POST['button']) == true){
-    if(!preg_match("/^(\d{10}|\d{11})$/", $telefone)){
-            echo "Telefone Inválido";
-    }else{
-        return [$this->Telefone = true, $this-> TelefoneValue = $telefone];
-    }
-   }
- }
-  public function VerificaCadastroProEGratuito(){
-     if($this-> Nome == true && $this-> CPF == true && $this-> Email == true 
-     && $this-> Senha == true && $this-> Telefone == true){
-     return   $this->Validado = true; 
-     }else{
-          echo "<span>Preencha os campos restantes</span>";
-     }
-  }
-  public function VerificaLoginSeDadosForamDigitados(){
-    if($this-> Email == true && $this-> Senha == true){
-        include_once("ValidaLogin.php");
-        $email =  $this-> GetDados -> GetEmail();
-        $senha = $this-> GetDados -> GetSenha();
-        $ValidaLogin -> VerificaLogin($email, $senha);
-    }else{
-    }
-  }
-  public function VerificaCadastroEmpresarial(){
-    if($this-> Nome == true && $this-> CNPJ == true && $this->Endereco == true && 
-    $this-> EnderecoNumero == true && $this-> Email == true && $this-> Senha == true &&
-     $this-> Telefone == true){
-     return   $this->Validado = true; 
-     }else{
-        var_dump($this-> Endereco);
-     }
-  }
-  public function InsertGratuito(){
-       if($this->Validado == true){
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
-        include_once("PHP/FunctionsDB/CRUD/Select.php");
-        include_once("PHP/Banco/Banco.php");
-        $Nome =  $this->NomeValue;
-        $CPF = $this->CPFValue;
-        $Email = $this->EmailValue;
-        $Senha = $this->SenhaValue;
-        $Telefone = $this->TelefoneValue;
-        if($VerificaSeExisteDadosDB -> VerificaEmail($Email, $Conecta) != false && 
-        VerificaCPF($CPF, $Conecta)){
-            $Insert -> InsertGratuito($Nome,$CPF,$Email,$Senha,$Telefone,$Conecta);
-        }else{
-            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
-        }
-        
-       }
-  }
-   public function InsertPro(){
-       if($this->Validado == true){
-        include_once("PHP/Banco/Banco.php");
-        include_once("PHP/FunctionsDB/CRUD/Select.php");
-        $Nome =  $this->NomeValue;
-        $CPF = $this->CPFValue;
-        $Email = $this->EmailValue;
-        $Senha = $this->SenhaValue;
-        $Telefone = $this->TelefoneValue;
-        if($VerificaSeExisteDadosDB -> VerificaEmail($Email, $Conecta) != false  && 
-        $VerificaSeExisteDadosDB->VerificaCPF($CPF, $Conecta) != false){
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
-        $Insert -> InsertPro($Nome,$CPF,$Email,$Senha,$Telefone,$Conecta);
-         }else{
-            echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a></span> ';
-         }
-       }
-  }
-  public function InsertEmpresarial(){
-       if($this->Validado == true){
-        include_once("PHP/Banco/Banco.php");
-        include_once("PHP/FunctionsDB/CRUD/Select.php");
-        $Nome =  $this->NomeValue;
-        $CNPJ = $this->CNPJValue;
-        $Email = $this->EmailValue;
-        $Senha = $this->SenhaValue;
-        $Telefone = $this->TelefoneValue;
-        $Endereco = $this->EnderecoValue;
-        $Numero = $this->EnderecoNumeroValue;
-        if($VerificaSeExisteDadosDB->VerificaEmail($Email, $Conecta) == false){
-         echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http:localhost/Projects/InfoCar/login.php">Logar</a>
-         Se for alterar o plano é só logar na conta e ir em meus dados</span> ';
-        }else if($VerificaSeExisteDadosDB->VerificaCNPJ($CNPJ, $Conecta) == false){
-       echo '<span>Usuário já cadastrado, deseja logar nele? <a href="http://localhost/Projects/InfoCar/login.php">Logar</a>
-         Se for alterar o plano é só logar na conta e ir em meus dados</span> ';
-         }else{
-            include_once("PHP/FunctionsDB/CRUD/insert.php");
-            $Insert -> InsertEmpresarial($Nome,$CNPJ,$Email,$Senha,$Telefone,$Endereco,$Numero,$Conecta);
-         }
-       }
-  }
 }
+$ValidateForm = new ValidateData();
 
-$ValidaDados = new ValidaDados();
-?>
+class Registration {
+    private ValidateData $validator ;
+
+    public function __construct(ValidateData $validator) {
+        $this->validator = $validator;
+    }
+
+    // -------------------
+    // Free User Registration
+    // -------------------
+    public function insertFree() {
+          $canRegister = $this->validator->checkFreeOrProRegistration();
+   if(!$this->validator->validated) return;
+        include_once("../PHP/Banco/Banco.php");
+        include_once("../PHP/FunctionsDB/CRUD/Select.php");
+        include_once("../PHP/FunctionsDB/CRUD/insert.php");
+
+        $name = $this->validator->nameValue;
+        $cpf = $this->validator->cpfValue;
+        $Email = $this->validator->emailValue;
+        $password = $this->validator->passwordValue;
+        $phone = $this->validator->phoneValue;
+
+        if($VerificaSeExisteDadosDB->VerificaEmail($Email, $Connection) != false &&
+           VerificaCPF($cpf, $Connection)) {
+            $Insert->InsertGratuito($name, $cpf, $Email, $password, $phone, $Conecta);
+        } else {
+            echo '<span>Usuário já cadastrado, deseja logar nele? 
+            <a href="http://localhost/Projects/InfoCar/login.php">Logar</a></span>';
+        }
+         echo "s";
+    }
+
+    // -------------------
+    // Pro User Registration
+    // -------------------
+    public function insertPro() {
+        if(!$this->validator->validated) return;
+
+        include_once("PHP/Banco/Banco.php");
+        include_once("PHP/FunctionsDB/CRUD/Select.php");
+        include_once("PHP/FunctionsDB/CRUD/insert.php");
+
+        $name = $this->validator->nameValue;
+        $cpf = $this->validator->cpfValue;
+        $email = $this->validator->emailValue;
+        $password = $this->validator->passwordValue;
+        $phone = $this->validator->phoneValue;
+
+        if($VerificaSeExisteDadosDB->VerificaEmail($email, $Conecta) != false &&
+           $VerificaSeExisteDadosDB->VerificaCPF($cpf, $Conecta) != false) {
+            $Insert->InsertPro($name, $cpf, $email, $password, $phone, $Conecta);
+        } else {
+            echo '<span>Usuário já cadastrado, deseja logar nele? 
+            <a href="http://localhost/Projects/InfoCar/login.php">Logar</a></span>';
+        }
+    }
+
+    // -------------------
+    // Enterprise Registration
+    // -------------------
+    public function insertEnterprise() {
+        if(!$this->validator->validated) return;
+
+        include_once("PHP/Banco/Banco.php");
+        include_once("PHP/FunctionsDB/CRUD/Select.php");
+        include_once("PHP/FunctionsDB/CRUD/insert.php");
+
+        $name = $this->validator->nameValue;
+        $cnpj = $this->validator->cnpjValue;
+        $email = $this->validator->emailValue;
+        $password = $this->validator->passwordValue;
+        $phone = $this->validator->phoneValue;
+        $address = $this->validator->addressValue;
+        $number = $this->validator->addressNumberValue;
+
+        // Verifica se já existe email ou CNPJ
+        if($VerificaSeExisteDadosDB->VerificaEmail($email, $Conecta) == false ||
+           $VerificaSeExisteDadosDB->VerificaCNPJ($cnpj, $Conecta) == false) {
+            echo '<span>Usuário já cadastrado, deseja logar nele? 
+            <a href="http://localhost/Projects/InfoCar/login.php">Logar</a>
+            Se for alterar o plano é só logar na conta e ir em meus dados</span>';
+        } else {
+            $Insert->InsertEmpresarial($name, $cnpj, $email, $password, $phone, $address, $number, $Conecta);
+        }
+    }
+}
+$Insert = new Registration($ValidateForm);
