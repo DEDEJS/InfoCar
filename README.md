@@ -1,5 +1,37 @@
 # InfoCar
 Sistema de carro 
 Funções
-1- Cadastro do carro: Nome, Marca, Ano, Modelo
-2- Revisões: O que foi feito, em qual área foi mexido, exemplo, motor, suspensão
+
+Banco de Dados
+ - SQL 
+ create table UserNaturalPerson(
+    IdIndividualPerson INT AUTO_INCREMENT PRIMARY KEY,
+    CPF VARCHAR(20) NOT NULL UNIQUE,
+    IdTableUserDados INT NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
+     ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;  
+
+  CREATE TABLE UserData (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Name VARCHAR(49) NOT NULL,
+    Phone VARCHAR(25),
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT uq_email UNIQUE (Email)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE UserCompany(
+    IdUserCompany INT AUTO_INCREMENT PRIMARY KEY,
+    CNPJ VARCHAR(14) NOT NULL UNIQUE,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
+    ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
