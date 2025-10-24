@@ -1,46 +1,99 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const Marca = document.getElementById('Marca');
+  const ModeloSelect = document.getElementById('ModeloSelect');
+  const ModelosPorMarca = {
+    Audi: [
+      "<option>Outro Modelo</option>",
+      "<option>A1</option>",
+      "<option>A3</option>",
+      "<option>A4</option>",
+      "<option>A5</option>",
+      "<option>A6</option>",
+      "<option>A7</option>",
+      "<option>A8</option>",
+      "<option>Q3</option>",
+      "<option>Q5</option>",
+      "<option>Q7</option>",
+      "<option>Q8</option>",
+      "<option>R8</option>",
+      "<option>RSQ3</option>",
+      "<option>RSQ8</option>",
+      "<option>RS2</option>",
+      "<option>RS3</option>",
+      "<option>RS4</option>",
+      "<option>RS5</option>",
+      "<option>RS6</option>",
+      "<option>RS7</option>",
+      "<option>S2</option>",
+      "<option>S3</option>",
+      "<option>S4</option>",
+      "<option>S6</option>",
+      "<option>S8</option>",
+      "<option>TT</option>",
+      "<option>TT RS</option>",
+      "<option>TTS</option>",
 
-function modelos(){
-const AudiModelos = [  
-"<option>Outro Modelo</option>",
-"<option>A1</option>",
-"<option>A3</option>",
-"<option>A4</option>",
-"<option>A5</option>",
-"<option>A6</option>",
-"<option>A7</option>",
-"<option>A8</option>"
-];
-const BmwModelos = [
-    "<option>Outro Modelo</option>",
-    "<option>1M</option>",
-    "<option>116I</option>",
-    "<option>118I</option>",
-    "<option>120I</option>",
-    "<option>125I</option>",
-    "<option>130I</option>",
-    "<option>320</option>",
-    "<option>320I</option>",
-    "<option>330E</option>",
-    "<option>420I</option>",
-    "<option>428I</option>",
-    "<option>M1</option>",
-    "<option>M2</option>",
-    "<option>M3</option>",
-    "<option>M4</option>",
-    "<option>M5</option>",
-    "<option>M6</option>",
-    "<option>M8</option>",
-    "<option>X1</option>",
-    "<option>X2</option>",
-    "<option>X3</option>",
-    "<option>X4</option>",
-    "<option>X5</option>",
-    "<option>X6</option>",
-    "<option>X7</option>",
-    "<option>Z3</option>",
-    "<option>Z4</option>",
-];
-const ChevroletModelos = [
+    ],
+    Bmw: [
+      "<option>Outro Modelo</option>",
+      "<option>1M</option>",
+      "<option>116I</option>",
+      "<option>118I</option>",
+      "<option>120I</option>",
+      "<option>125I</option>",
+      "<option>130I</option>",
+      "<option>135I</option>",
+      "<option>318I</option>",
+      "<option>320I</option>",
+      "<option>330E</option>",
+      "<option>330I</option>",
+      "<option>335I</option>",
+      "<option>420I</option>",
+      "<option>430I</option>",
+      "<option>435I</option>",
+      "<option>520I</option>",
+      "<option>525I</option>",
+      "<option>528I</option>",
+      "<option>530E</option>",
+      "<option>535I</option>",
+      "<option>530I</option>",
+      "<option>540I</option>",
+      "<option>545I</option>",
+      "<option>550I</option>",
+      "<option>740I</option>",
+      "<option>M135</option>",
+      "<option>M140I</option>",
+      "<option>M2351</option>",
+      "<option>M240I</option>",
+      "<option>M340I</option>",
+      "<option>M440I</option>",
+      "<option>M8500I</option>",
+      "<option>M2</option>",
+      "<option>M3</option>",
+      "<option>M4</option>",
+      "<option>M5</option>",
+      "<option>M6</option>",
+      "<option>M8</option>",
+      "<option>X1</option>",
+      "<option>X2</option>",
+      "<option>X3</option>",
+      "<option>X4</option>",
+      "<option>X5</option>",
+      "<option>X6</option>",
+      "<option>X7</option>",
+      "<option>Z1</option>",
+      "<option>Z3</option>",
+      "<option>Z4</option>",
+      "<option>I3</option>",
+      "<option>I5</option>",
+      "<option>I7</option>",
+      "<option>I8</option>",
+      "<option>IX</option>",
+      "<option>IX1</option>",
+      "<option>IX2</option>",
+      "<option>IX3</option>"
+    ],
+  Chevrolet: [
     "<option>Outro Modelo</option>",
     "<option>Agile</option>",
     "<option>Astra</option>",
@@ -66,7 +119,8 @@ const ChevroletModelos = [
     "<option>D20</option>",
     "<option>D40</option>",
     "<option>Impala</option>",
-    "<option>Kadett</option>", 
+    "<option>Kadett</option>",
+    "<option>Montana</option>",
     "<option>Omega</option>",
     "<option>Onix</option>",
     "<option>Opala</option>",
@@ -75,10 +129,10 @@ const ChevroletModelos = [
     "<option>Silverado</option>",
     "<option>Spin</option>",
     "<option>Tracker</option>",
+    "<option>Trailblazer</option>",
     "<option>Vectra</option>",
     "<option>Zafira</option>"
-];
-const FiatModelos = [
+],Fiat: [
     "<option>Outro Modelo</option>",
     "<option>147</option>",
     "<option>500e</option>",
@@ -105,8 +159,8 @@ const FiatModelos = [
     "<option>Tipo</option>",
     "<option>Toro</option>",
     "<option>Uno</option>"
-];
-const FordModelos = [
+],
+   Ford: [
     "<option>Outro Modelo</option>",
     "<option>Belina</option>",
     "<option>Bronco Sport</option>",
@@ -142,231 +196,139 @@ const FordModelos = [
     "<option>Transit</option>",
     "<option>Verona</option>",
     "<option>Versailles</option>"
-];
-const HondaModelos = [
+],
+Honda: [
     "<option>Outro Modelo</option>",
     "<option>Accord</option>",
     "<option>City</option>",
     "<option>Civic</option>",
-    "<option>Crv</option>",
+    "<option>CR-V</option>",
     "<option>Fit</option>",
-    "<option>Hr-v</option>",
+    "<option>HR-V</option>",
     "<option>Prelude</option>",
-    "<option>Wr-v</option>",
-    "<option>Zr-v</option>"
-];
-const HyundaiModelos = [
-"<option>Outro Modelo</option>",
-        "<option>Atos</option>",
-        "<option>Azera</option>",
-        "<option>Coupê</option>",
-        "<option>Creta</option>",
-        "<option>Elantra</option>",
-        "<option>Grand Santa Fé</option>",
-        "<option>Hb20</option>",
-        "<option>Hr</option>",
-        "<option>I30</option>",
-        "<option>Ix35</option>",
-        "<option>Santa Fé</option>",
-        "<option>Sonata</option>",
-        "<option>Tucson</option>",
-        "<option>Veloster</option>",
-        "<option>Veracruz</option>"
-];
-const JeepModelos = [
+    "<option>WR-V</option>",
+    "<option>Z-RV</option>"
+],
+
+   Hyundai: [
     "<option>Outro Modelo</option>",
-    "<option>Cherokee</option>",
-    "<option>Cj 5</option>",
-    "<option>Cj 6</option>",
-    "<option>Commander</option>",
-    "<option>Compass</option>",
-    "<option>Gladiator</option>",
-    "<option>Grand Cherokee</option>",
+    "<option>HB20</option>",
+    "<option>HB20S</option>",
+    "<option>Tucson</option>",
+    "<option>Creta</option>",
+    "<option>Santa Fe</option>",
+    "<option>i30</option>",
+    "<option>Azera</option>",
+    "<option>Veloster</option>",
+    "<option>Elantra</option>",
+    "<option>Grand Santa Fé</option>",
+    "<option>Atos</option>",
+    "<option>Coupé</option>",
+    "<option>ix35</option>",
+    "<option>Veracruz</option>",
+    "<option>HR</option>"
+],
+
+    Jeep: [
+    "<option>Outro Modelo</option>",
     "<option>Renegade</option>",
-    "<option>Wrangler</option>"
-];
-const KiaModelos = [
-"<option>Outro Modelo</option>",
-        "<option>Cadenza</option>",
-        "<option>Carnival</option>",
-        "<option>Cerato</option>",
-        "<option>Picanto</option>",
-        "<option>Sorento</option>",
-        "<option>Sportage</option>"
-];
-const MercedesModelos = [
+    "<option>Compass</option>",
+    "<option>Commander</option>",
+    "<option>Wrangler</option>",
+    "<option>Cherokee</option>",
+    "<option>Grand Cherokee</option>",
+    "<option>Gladiator</option>",
+    "<option>CJ5</option>",
+    "<option>CJ6</option>"
+],
+
+   Kia: [
     "<option>Outro Modelo</option>",
-    "<option>A 160</option>",
-    "<option>A 190</option>",
-    "<option>A 200</option>",
-    "<option>A 250</option>",
-    "<option>A 35 Amg</option>",
-    "<option>A 45 Amg</option>",
-    "<option>Amg Gt</option>",
-    "<option>Amg Gt 43</option>",
-    "<option>Amg Gt 63</option>",
-    "<option>B 170</option>",
-    "<option>B 180</option>",
-    "<option>B 200</option>",
-    "<option>C 180</option>",
-    "<option>C 200</option>",
-    "<option>C 220</option>",
-    "<option>C 230</option>",
-    "<option>C 240</option>",
-    "<option>C 250</option>",
-    "<option>C 280</option>",
-    "<option>C 300</option>",
-    "<option>C 320</option>",
-    "<option>C 32 Amg</option>",
-    "<option>C 350</option>",
-    "<option>C 43 Amg</option>",
-    "<option>C 450 Amg</option>",
-    "<option>C 450</option>",
-    "<option>C 55 Amg</option>",
-    "<option>C 63 Amg</option>",
-    "<option>Cl 500</option>",
-    "<option>Cl 63 Amg</option>",
-    "<option>Cla 180</option>",
-    "<option>Cla 200</option>",
-    "<option>Cla 250</option>",
-    "<option>Cla 35 Amg</option>",
-    "<option>Cla 45 Amg</option>",
-    "<option>Classe A</option>",
-    "<option>Cla 180</option>",
-    "<option>Cla 180</option>",
-    "<option>Cla 180</option>"
-];
-const RenaultModelos = [
+    "<option>Picanto</option>",
+    "<option>Rio</option>",
+    "<option>Cerato</option>",
+    "<option>Sportage</option>",
+    "<option>Sorento</option>",
+    "<option>Stonic</option>",
+    "<option>K5</option>",
+    "<option>Mohave</option>",
+    "<option>EV6</option>"
+],
+ Mercedes: [
     "<option>Outro Modelo</option>",
-    "<option>Captur</option>",
-    "<option>Clio</option>",
-    "<option>Duster</option>",
-    "<option>Duster Oroch</option>",
-    "<option>Fluence</option>",
-    "<option>Grand Scénic</option>",
-    "<option>Kangoo</option>",
-    "<option>Kardian</option>",
+    "<option>A200</option>",
+    "<option>A250</option>",
+    "<option>C180</option>",
+    "<option>C200</option>",
+    "<option>C300</option>",
+    "<option>CLA200</option>",
+    "<option>GLA200</option>",
+    "<option>B180</option>",
+    "<option>B200</option>",
+    "<option>C250</option>",
+    "<option>GLC300</option>",
+    "<option>GLE350</option>",
+    "<option>AMG GT</option>"
+],
+Renault: [
+    "<option>Outro Modelo</option>",
     "<option>Kwid</option>",
+    "<option>Sandero</option>",
     "<option>Logan</option>",
-    "<option>Master</option>",
-    "<option>Megane</option>",
+    "<option>Duster</option>",
+    "<option>Captur</option>",
     "<option>Oroch</option>",
-    "<option>Sandero</option>"
-];
-const VolkswagenModelos = [
+    "<option>Megane</option>",
+    "<option>Fluence</option>",
+    "<option>Clio</option>",
+    "<option>Master</option>",
+    "<option>Grand Scenic</option>",
+    "<option>Kangoo</option>",
+    "<option>Kardian</option>"
+],
+Volkswagen: [
     "<option>Outro Modelo</option>",
-    "<option>Amarok</option>",
-    "<option>Apollo</option>",
-    "<option>Bora</option>",
-    "<option>Brasilia</option>",
-    "<option>Buggy</option>",
-    "<option>Cross Up</option>",
-    "<option>Cross Fox</option>",
-    "<option>Eos</option>",
     "<option>Gol</option>",
-    "<option>Golf</option>",
-    "<option>Jetta</option>",
-    "<option>Kombi</option>",
-    "<option>Logus</option>",
-    "<option>New Beetle</option>",
-    "<option>Nivus</option>",
-    "<option>Parati</option>",
-    "<option>Passat</option>",
-    "<option>Pointer</option>",
+    "<option>Fox</option>",
     "<option>Polo</option>",
-    "<option>Quantum</option>",
-    "<option>Santana</option>",
-    "<option>Saveiro</option>",
-    "<option>Space Cross</option>",
+    "<option>Virtus</option>",
     "<option>T-Cross</option>",
-    "<option>Taos</option>",
+    "<option>Nivus</option>",
+    "<option>Jetta</option>",
+    "<option>Up</option>",
+    "<option>Amarok</option>",
+    "<option>Passat</option>",
+    "<option>Saveiro</option>",
     "<option>Tiguan</option>",
     "<option>Touareg</option>",
-    "<option>Up</option>",
-    "<option>Van</option>",
+    "<option>Space Cross</option>",
+    "<option>Parati</option>",
     "<option>Variant</option>",
-    "<option>Virtus</option>",
-    "<option>Voyage</option>"
-];
-Marca = document.getElementById('Marca');
-ModeloSelect = document.getElementById('ModeloSelect'); 
-MeuCarroDiv = document.getElementById('MeuCarroDiv');
-QuilometragemDiv = document.getElementById('QuilometragemDiv');
+    "<option>New Beetle</option>",
+    "<option>Kombi</option>"
+],
 
-if(Marca.value == "---"){
-    ModeloSelect.style.display = "none";
-    MeuCarroDiv.style.display = "none";
-    QuilometragemDiv.style.display = "none";
-}else if(Marca.value == "Audi"){
-  ModeloSelect.style.display = "block";
-  MeuCarroDiv.style.display = "block";
-  QuilometragemDiv.style.display = "block";
-  return AudiModelos
-}else if(Marca.value == "Bmw"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return BmwModelos;
-}else if(Marca.value == "Chevrolet"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return ChevroletModelos;
-}else if(Marca.value == "Fiat"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return FiatModelos;
-}else if(Marca.value == "Ford"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return FordModelos;
-}else if(Marca.value == "Honda"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return HondaModelos;
-}else if(Marca.value == "Hyundai"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return HyundaiModelos;
-}else if(Marca.value == "Jeep"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return JeepModelos;
-}else if(Marca.value == "Kia"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return KiaModelos;
-}else if(Marca.value == "Mercedes-Bens"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return MercedesModelos;
-}else if(Marca.value == "Renault"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return RenaultModelos;
-}else if(Marca.value == "Volkswagen"){
-    ModeloSelect.style.display = "block";
-    MeuCarroDiv.style.display = "block";
-    QuilometragemDiv.style.display = "block";
-    return VolkswagenModelos;
-}
-}
-function ImprimeModelos(){
-    Modelo = document.getElementById('Modelo');
-     var ModelosArray = modelos();
-    Modelo.innerHTML = ModelosArray;
+  };
 
+  // 🔹 Atualiza os modelos conforme a marca selecionada
+  function atualizarModelos() {
+    const marca = Marca.value;
+
+    if (marca === "---") {
+      ModeloSelect.style.display = "none";
+      ModeloSelect.innerHTML = "<option>Outro Modelo</option>";
+      return;
     }
-function ValidaformCadastro(){
-    
-     return modelos(), ImprimeModelos();
-}
-setInterval(ValidaformCadastro(), 1000);
+
+    const modelos = ModelosPorMarca[marca] || ["<option>Outro Modelo</option>"];
+    ModeloSelect.innerHTML = modelos.join("");
+
+    ModeloSelect.style.display = "block";
+  }
+
+  // 🔹 Evento para mudar os modelos automaticamente
+  Marca.addEventListener("change", atualizarModelos);
+
+  // 🔹 Inicializa ao carregar (caso tenha valor pré-selecionado)
+  atualizarModelos();
+});

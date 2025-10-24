@@ -1,20 +1,22 @@
 <?php
+class Banco_DB {
+    protected $conn;
 
-class Banco_DB{
-    public $conn;
-        public function conecta(){
-            try {
-         
-                $Conecta =  new PDO('mysql:host=localhost;dbname=infocar', 'root', '');
-                  $Conecta->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                  return $Conecta;
-              } catch(PDOException $e) {
-                  echo 'ERROR: ' . $e->getMessage();
-              }
-            
-        
-      } 
+    public function __construct() {
+        $this->conecta();
     }
-    $Banco = new Banco_DB();
-    $Conecta = $Banco -> conecta();
+
+    private function conecta() {
+        try {
+            $this->conn = new PDO('mysql:host=localhost;dbname=infocar', 'root', '');
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
+    public function getConn() {
+        return $this->conn;
+    }
+}
 ?>
