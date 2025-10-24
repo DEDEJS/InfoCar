@@ -20,7 +20,7 @@ body {
   margin-bottom: 2rem;
 }
 
-.btn-primary, .btn-secondary {
+.btn-secondary {
   padding: 0.75rem 1.5rem;
   border: none;
   text-decoration: none;
@@ -28,39 +28,12 @@ body {
   display: inline-block;
 }
 
-.btn-primary {
-  background-color: #0e70c0;
-  color: white;
-  border-radius: 6px;
-}
 
 .btn-secondary {
   background-color: transparent;
   color: #0e70c0;
   border: 2px solid #0e70c0;
   border-radius: 6px;
-}
-
-.clients, .features, .plans, .faq, .cta {
-  background-color: #fff;
-  padding: 3rem 0;
-  text-align: center;
-}
-
-.cards, .plan-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.cards article, .plan-cards article {
-  background: #f4f4f4;
-  padding: 1.5rem;
-  border-radius: 8px;
-  flex: 1 1 250px;
-  max-width: 300px;
 }
 
 .features ul {
@@ -81,18 +54,6 @@ details summary {
   margin: 1rem 0;
 }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 2rem 0;
-}
-
-footer nav a {
-  color: #fff;
-  margin: 0 0.5rem;
-  text-decoration: none;
-}
 .toggle-info {
   background: none;
   border: none;
@@ -111,16 +72,6 @@ footer nav a {
   transform: rotate(180deg);
 }
 
-.info-hidden {
-  display: none;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.toggle-info + .info-hidden.show {
-  display: block;
-}
 .hidden{
   display: none;
 }
@@ -129,11 +80,7 @@ footer nav a {
 
 
 @media (max-width: 768px) {
-  .cards, .plan-cards {
-    flex-direction: column;
-    align-items: center;
-  
-  }
+
 
 
   .btn-header {

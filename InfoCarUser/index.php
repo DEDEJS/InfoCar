@@ -10,21 +10,25 @@ ini_set('default_charset','UTF-8');
   <meta name="description" content="Sistema De Registro De Manutenções Veiculares, Tanto Para Oficinas, Tanto Para Os Proprietários">
   <title>InfoCar - Controle De Manutenção Veicular Inteligente</title>
   <link  type="text/css" rel="stylesheet"  href="Assets/CSS/index.css">
-  <link  type="text/css" rel="stylesheet"  href="Assets/CSS/Menu.css">
-  <script src="Assets/JS/Interacao.js"></script>
+  <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Menu.css">
+  <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Cards.css">
+  <link rel="stylesheet" href="../assets/CSS/Footer.css">
+  <script src="../JS/Interacao.js"></script>
 </head>
 <body>
   <header>
     <div class="container">
       <div class="MenuH1-toggle">
-       <svg width="220" height="60" xmlns="http://www.w3.org/2000/svg">
-       <rect width="100%" height="100%" fill="#ffffff"/>
-       <g font-family="Arial, sans-serif" fill="#222">
-       <path d="M30 35c0-5 4-9 9-9h15c5 0 9 4 9 9v5h2c1.1 0 2 .9 2 2v3h-4a4 4 0 1 1-8 0h-12a4 4 0 1 1-8 0h-4v-3c0-1.1.9-2 2-2h2v-5z" fill="#007BFF"/>
-       <text x="70" y="40" font-size="24" fill="#007BFF">Info</text>
-       <text x="110" y="40" font-size="24" fill="#222222">Car</text>
-       </g>
-       </svg>
+       <a href="index.php">
+        <svg width="220" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#ffffff"/>
+        <g font-family="Arial, sans-serif" fill="#222">
+        <path d="M30 35c0-5 4-9 9-9h15c5 0 9 4 9 9v5h2c1.1 0 2 .9 2 2v3h-4a4 4 0 1 1-8 0h-12a4 4 0 1 1-8 0h-4v-3c0-1.1.9-2 2-2h2v-5z" fill="#007BFF"/>
+        <text x="70" y="40" font-size="24" fill="#007BFF">Info</text>
+        <text x="110" y="40" font-size="24" fill="#222222">Car</text>
+        </g>
+        </svg>
+       </a>
       </div>
       <nav id="main-nav">
         <ul class="MenuLinks">
@@ -57,7 +61,6 @@ ini_set('default_charset','UTF-8');
       <div class="hero-image"></div>
     </div>
   </section>
-
   <section id="clients" class="clients">
     <div class="container">
       <h2>Para quem é o InfoCar</h2>
@@ -244,7 +247,6 @@ ini_set('default_charset','UTF-8');
       <nav>
         <a href="#">Sobre</a>
         <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
         <a href="#">Termos de Uso</a>
       </nav>
     </div>
