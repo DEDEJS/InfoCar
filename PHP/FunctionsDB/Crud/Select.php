@@ -249,9 +249,9 @@ class LoginSelector {
 
 
 class VerificaSeExisteDadosCadastrados{
-    public function VerificaCPF($CPF, $Connection){
-       if($CPF != null){
-        $SQLCPF = "SELECT  cpf FROM user WHERE cpf = :CPF LIMIT 1";
+    public function CheckCPF($cpf, $Connection){
+       if($cpf != null){
+        $SQLCPF = "SELECT CPF FROM usernaturalperson WHERE cpf = :CPF LIMIT 1";
         $QueryCPF = $Connection->prepare($SQLCPF);
         $QueryCPF->bindParam(':CPF', $CPF, PDO::PARAM_STR);
         $QueryCPF->execute();
@@ -261,9 +261,9 @@ class VerificaSeExisteDadosCadastrados{
       } else {return true;}
       }
     }
-    public function VerificaCNPJ($CNPJ, $Connection){
+    public function CheckCNPJ($CNPJ, $Connection){
       if($CNPJ != null){
-         $SQLCNPJ = "SELECT cnpj FROM empresa WHERE cnpj = :CNPJ";
+         $SQLCNPJ = "SELECT CNPJ	FROM usercompany WHERE cnpj = :CNPJ";
          $QueryCNPJ = $Connection->prepare($SQLCNPJ);
          $QueryCNPJ->bindParam(':CNPJ', $CNPJ, PDO::PARAM_STR);
          $QueryCNPJ->execute();
@@ -273,9 +273,9 @@ class VerificaSeExisteDadosCadastrados{
       } else {return true;}
       }
     }
-    public function VerificaEmail($Email, $Connection){ 
+    public function CheckEmail($Email, $Connection){ 
         if($Email != null){
-           $SQLEMAIL = "SELECT Email FROM emailusuarios WHERE Email = :Email LIMIT 1";
+           $SQLEMAIL = "SELECT email FROM userdata WHERE Email = :Email LIMIT 1";
            $QueryEmail = $Connection->prepare($SQLEMAIL);
            $QueryEmail->bindParam(':Email', $Email, PDO::PARAM_STR);
            $QueryEmail->Execute();

@@ -1,50 +1,130 @@
 <?php
- //$VerificaSeExisteId = $SelectMaintenance -> VerificaSeExisteIdParaCadastrar($Conecta);
-class InsertNewCar{
-    public function InsertCar($Conecta, $Placa,$Marca,$Modelo,$MeuCarro,$Quilometragem){
-          $QueryInsertCar = $Conecta->prepare('INSERT INTO cars (Placa, Marca, Modelo, MeuCarro, Quilometragem) 
-       VALUES(:placa, :marca, :modelo, :MeuCarro, :Quilometragem)');
-       $QueryInsertCar->execute(array(
-         ':placa' => $Placa,
-        ':marca' => $Marca,
-        ':modelo' => $Modelo,
-        ':MeuCarro' => $MeuCarro,
-        ':Quilometragem' => $Quilometragem
-       ));
-       $this-> Cadastrado = true;
-       session_start();
-       $_SESSION['Cadastrado'] = true;
-       $_SESSION['Cadastrado'] = time() + 30;
-       header("location:Mensagens/Cadastrado.php");
-       exit();
-       // mandar para uma página falando que foi cadastrado
-    }
- 
-}
-class InsertNewMaintenance{
-    public function InsertMaintenanceDB($Conecta,$IdCar ,$Tipo, $Peca,  $PecaCodigo, $FabricantePecaCodigo, $ValorPeca, $MaoDeObra, $LocalManutencao, $Data, $Observacao){
-        $QueryInsertMaintenance = $Conecta->prepare('INSERT INTO maintenance (Id_Car, Peca, CodigoPeca, FabricantePeca, Valor_Peca, Valor_Mao_De_Obra, Data, Tipo_De_Manutencao, Local, Observacao) 
-        VALUES(:Id_Car, :Peca, :CodigoPeca, :FabricantePeca, :Valor_Peca, :Valor_Mao_De_Obra, :Data, :Tipo_De_Manutencao, :Local, :Observacao)');
-         $QueryInsertMaintenance->execute(array(
-            ':Id_Car' => $IdCar,
-             ':Peca' => $Peca,
-             ':CodigoPeca' => $PecaCodigo,
-             ':FabricantePeca' => $FabricantePecaCodigo,
-             ':Valor_Peca' => $ValorPeca,
-             ':Valor_Mao_De_Obra' => $MaoDeObra,
-             ':Data' => $Data,
-             ':Tipo_De_Manutencao' => $Tipo,
-             ':Local' => $LocalManutencao,
-             ':Observacao' => $Observacao
-         ));
-         echo "Cadastrado";
-         header("location:ManutencaoCarro.php?Car=".$IdCar);
-         exit();
-    
-     }
-    }
+class InsertUser{
+public function InsertUserFree($name, $email, $cpf, $passwordHash, $phone, $Connection) {
+    try {
+        $Connection->beginTransaction();
 
-$Insert = new InsertNewCar();
-$InsertMaintence =  new InsertNewMaintenance();
-//$Cadastro = $Insert -> VerificaSefoiCadastrado();
+        $QueryInsertUser = $Connection->prepare('
+            INSERT INTO UserData (Email, Password, Name, Phone)
+            VALUES (:Email, :Password, :Name, :Phone)
+        ');
+        $QueryInsertUser->execute(array(
+            ':Email' => $email,
+            ':Password' => $passwordHash,
+            ':Name' => $name,
+            ':Phone' => $phone
+        ));
+
+        $userId = $Connection->lastInsertId();
+
+        $QueryInsertLogin = $Connection->prepare('
+            INSERT INTO UserLogin (UserDataId, AccountType)
+            VALUES (:UserDataId, :AccountType)
+        ');
+        $QueryInsertLogin->execute(array(
+            ':UserDataId' => $userId,
+            ':AccountType' => 'Free'
+        ));
+        $QueryInsertUserNaturalPerson = $Connection->prepare('
+              INSERT INTO usernaturalperson (CPF, IdTableUserDados)
+              VALUES (:Cpf, :IdTableUserDados)
+        ');
+        $QueryInsertUserNaturalPerson -> execute(array(
+              ':Cpf' => $cpf,
+              'IdTableUserDados' => $userId
+        ));
+        $Connection->commit();
+        echo "Usuário cadastrado com sucesso!";
+    } catch (Exception $e) {
+        $Connection->rollBack();
+        echo "Erro ao cadastrar: " . $e->getMessage();
+    }
+   }
+
+  public function InsertUserPro($name, $email, $cpf, $passwordHash, $phone, $Connection){
+        try {
+        $Connection->beginTransaction();
+
+        $QueryInsertUser = $Connection->prepare('
+            INSERT INTO UserData (Email, Password, Name, Phone)
+            VALUES (:Email, :Password, :Name, :Phone)
+        ');
+        $QueryInsertUser->execute(array(
+            ':Email' => $email,
+            ':Password' => $passwordHash,
+            ':Name' => $name,
+            ':Phone' => $phone
+        ));
+
+        $userId = $Connection->lastInsertId();
+
+        $QueryInsertLogin = $Connection->prepare('
+            INSERT INTO UserLogin (UserDataId, AccountType)
+            VALUES (:UserDataId, :AccountType)
+        ');
+        $QueryInsertLogin->execute(array(
+            ':UserDataId' => $userId,
+            ':AccountType' => 'Pro'
+        ));
+        $QueryInsertUserNaturalPerson = $Connection->prepare('
+              INSERT INTO usernaturalperson (CPF, IdTableUserDados)
+              VALUES (:Cpf, :IdTableUserDados)
+        ');
+        $QueryInsertUserNaturalPerson -> execute(array(
+              ':Cpf' => $cpf,
+              'IdTableUserDados' => $userId
+        ));
+
+        $Connection->commit();
+        echo "Usuário cadastrado com sucesso!";
+    } catch (Exception $e) {
+        $Connection->rollBack();
+        echo "Erro ao cadastrar: " . $e->getMessage();
+    }
+  }
+    public function InsertUserBussines($name, $email, $cnpj, $passwordHash, $phone, $Connection){
+        try {
+        $Connection->beginTransaction();
+
+        $QueryInsertUser = $Connection->prepare('
+            INSERT INTO UserData (Email, Password, Name, Phone)
+            VALUES (:Email, :Password, :Name, :Phone)
+        ');
+        $QueryInsertUser->execute(array(
+            ':Email' => $email,
+            ':Password' => $passwordHash,
+            ':Name' => $name,
+            ':Phone' => $phone
+        ));
+
+        $userId = $Connection->lastInsertId();
+
+        $QueryInsertLogin = $Connection->prepare('
+            INSERT INTO UserLogin (UserDataId, AccountType)
+            VALUES (:UserDataId, :AccountType)
+        ');
+        $QueryInsertLogin->execute(array(
+            ':UserDataId' => $userId,
+            ':AccountType' => 'Business'
+        ));
+        $QueryInsertUserCompany = $Connection->prepare('
+            INSERT INTO usercompany (CNPJ, IdTableUserDados)
+            VALUES (:CNPJ, :IdTableUserDados)
+        ');
+        $QueryInsertUserCompany->execute(array(
+           ':CNPJ' => $cnpj,
+           'IdTableUserDados' => $userId
+        ));
+        $Connection->commit();
+        echo "Usuário cadastrado com sucesso!";
+    } catch (Exception $e) {
+        $Connection->rollBack();
+        echo "Erro ao cadastrar: " . $e->getMessage();
+    }
+  }
+}
+
+
+
+$InsertUser = new InsertUser();
 ?>

@@ -260,37 +260,39 @@ class Registration {
         $cpf = $this->validator->cpfValue;
         $Email = $this->validator->emailValue;
         $password = $this->validator->passwordValue;
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $phone = $this->validator->phoneValue;
 
-        if($VerificaSeExisteDadosDB->VerificaEmail($Email, $Connection) != false &&
-           VerificaCPF($cpf, $Connection)) {
-            $Insert->InsertGratuito($name, $cpf, $Email, $password, $phone, $Conecta);
+        if($VerificaSeExisteDadosDB->CheckEmail($Email, $Connection) != false &&
+           $VerificaSeExisteDadosDB-> CheckCPF($cpf, $Connection) != false) {
+             $InsertUser -> InsertUserFree($name, $Email, $cpf, $passwordHash, $phone, $Connection);
         } else {
             echo '<span>Usuário já cadastrado, deseja logar nele? 
             <a href="http://localhost/Projects/InfoCar/login.php">Logar</a></span>';
         }
-         echo "s";
+        
     }
 
     // -------------------
     // Pro User Registration
     // -------------------
     public function insertPro() {
+         $canRegister = $this->validator->checkFreeOrProRegistration();
         if(!$this->validator->validated) return;
-
-        include_once("PHP/Banco/Banco.php");
-        include_once("PHP/FunctionsDB/CRUD/Select.php");
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
-
+        include_once("../PHP/Banco/Banco.php");
+        include_once("../PHP/FunctionsDB/CRUD/Select.php");
+        include_once("../PHP/FunctionsDB/CRUD/insert.php");
+        
         $name = $this->validator->nameValue;
         $cpf = $this->validator->cpfValue;
-        $email = $this->validator->emailValue;
+        $Email = $this->validator->emailValue;
         $password = $this->validator->passwordValue;
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $phone = $this->validator->phoneValue;
 
-        if($VerificaSeExisteDadosDB->VerificaEmail($email, $Conecta) != false &&
-           $VerificaSeExisteDadosDB->VerificaCPF($cpf, $Conecta) != false) {
-            $Insert->InsertPro($name, $cpf, $email, $password, $phone, $Conecta);
+        if($VerificaSeExisteDadosDB->CheckEmail($Email, $Connection) != false &&
+        $VerificaSeExisteDadosDB->CheckCPF($cpf, $Connection) != false) {
+           $InsertUser-> InsertUserPro($name, $Email, $cpf, $passwordHash, $phone, $Connection);
         } else {
             echo '<span>Usuário já cadastrado, deseja logar nele? 
             <a href="http://localhost/Projects/InfoCar/login.php">Logar</a></span>';
@@ -301,29 +303,30 @@ class Registration {
     // Enterprise Registration
     // -------------------
     public function insertEnterprise() {
+       $canRegister = $this->validator-> checkEnterpriseRegistration();
         if(!$this->validator->validated) return;
 
-        include_once("PHP/Banco/Banco.php");
-        include_once("PHP/FunctionsDB/CRUD/Select.php");
-        include_once("PHP/FunctionsDB/CRUD/insert.php");
+        include_once("../PHP/Banco/Banco.php");
+        include_once("../PHP/FunctionsDB/CRUD/Select.php");
+        include_once("../PHP/FunctionsDB/CRUD/insert.php");
 
         $name = $this->validator->nameValue;
         $cnpj = $this->validator->cnpjValue;
         $email = $this->validator->emailValue;
         $password = $this->validator->passwordValue;
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $phone = $this->validator->phoneValue;
         $address = $this->validator->addressValue;
         $number = $this->validator->addressNumberValue;
 
         // Verifica se já existe email ou CNPJ
-        if($VerificaSeExisteDadosDB->VerificaEmail($email, $Conecta) == false ||
-           $VerificaSeExisteDadosDB->VerificaCNPJ($cnpj, $Conecta) == false) {
+        if($VerificaSeExisteDadosDB->CheckEmail($email, $Connection) != false &&
+           $VerificaSeExisteDadosDB->CheckCNPJ($cnpj, $Connection) != false) {
+           $InsertUser -> InsertUserBussines($name, $email, $cnpj, $passwordHash, $phone, $Connection);
+        } else {
             echo '<span>Usuário já cadastrado, deseja logar nele? 
             <a href="http://localhost/Projects/InfoCar/login.php">Logar</a>
-            Se for alterar o plano é só logar na conta e ir em meus dados</span>';
-        } else {
-            $Insert->InsertEmpresarial($name, $cnpj, $email, $password, $phone, $address, $number, $Conecta);
-        }
+            Se for alterar o plano é só logar na conta e ir em meus dados</span>';        }
     }
 }
 $Insert = new Registration($ValidateForm);
