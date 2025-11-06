@@ -38,7 +38,7 @@ session_start();
           <li><a href="CadastroGratuito.php">Cadastro Gratuito</a></li>
           <li><a href="CadastroPro.php">Cadastro Pró</a></li>
           <li><a href="CadastroEmpresarial.php">Cadastro Empresarial</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li><a href="contato.php" target="_blank">Contato</a></li>
         </ul>
       </nav>
        <button class="menu-toggle" aria-label="Abrir menu">
@@ -54,7 +54,8 @@ session_start();
     <div class="container">
       <h1>Cadastro Gratuito</h1>
       <p>Crie sua conta e comece a usar o InfoCar gratuitamente</p>
-      <form action="#" method="post" class="form-cadastro" onclick="return ValidaCadastroGratuito();">
+       <!-- onclick="return ValidaCadastroGratuito();"-->
+      <form action="#" method="post" class="form-cadastro">
         <label for="nome">Nome completo <span id="ErrorNome"><?php $ValidateForm -> ValidateName(); ?></span></label>
         <input type="text" id="nome" name="nome" placeholder="Nome:" value="<?php ValueDisplay::showName(); ?>">
         <label for="cpf">CPF <span id="ErrorCpf"><?php $ValidateForm -> ValidateCpf(); ?></span></label>

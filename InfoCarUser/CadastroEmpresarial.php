@@ -11,7 +11,6 @@ include_once("../PHP/ValidaDados/ValidaForm.php");
   <link rel="stylesheet" href="../assets/CSS/Form.css">
   <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Menu.css">
     <link rel="stylesheet" href="../assets/CSS/Footer.css">
-
   <script src="../JS/Interacao.js"></script>
   <script src="../JS/ValidaForm.js"></script>
 </head>
@@ -36,7 +35,7 @@ include_once("../PHP/ValidaDados/ValidaForm.php");
           <li><a href="CadastroGratuito.php">Cadastro Gratuito</a></li>
           <li><a href="CadastroPro.php">Cadastro Pró</a></li>
           <li><a href="CadastroEmpresarial.php">Cadastro Empresarial</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li><a href="contato.php" target="_blank">Contato</a></li>
         </ul>
       </nav>
        <button class="menu-toggle" aria-label="Abrir menu">

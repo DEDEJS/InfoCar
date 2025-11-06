@@ -36,7 +36,7 @@ ini_set('default_charset','UTF-8');
           <li><a href="#plans">Planos</a></li>
           <li><a href="#clients">Para quem é</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li><a href="Contato.php">Contato</a></li>
         </ul>
       </nav>
        <button class="menu-toggle" aria-label="Abrir menu">
@@ -174,7 +174,7 @@ ini_set('default_charset','UTF-8');
           <h3>Gratuito</h3>
           <p>Ideal para uso pessoal simples</p>
           <ul>
-            <li>1 veículo</li>
+            <li>Até 1 veículo</li>
             <li>Histórico básico</li>
             <li>Acesso Web/App</li>
             <li>Acesso por 7 dias</li>
@@ -240,7 +240,6 @@ ini_set('default_charset','UTF-8');
       </details>
     </div>
   </section>
-
   <footer>
     <div class="container">
       <p>&copy; 2025 InfoCar. Todos os direitos reservados.</p>
