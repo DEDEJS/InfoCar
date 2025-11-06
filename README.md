@@ -35,3 +35,28 @@ CREATE TABLE UserCompany(
     ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_unicode_ci;
+
+  CREATE TABLE UserLogin (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    UserDataId INT NOT NULL,
+    AccountType ENUM('Free', 'Pro', 'Business') NOT NULL DEFAULT 'Free',
+    LastLogin TIMESTAMP NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_userdata FOREIGN KEY (UserDataId) REFERENCES UserData(Id)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
+  
+  create table contact(
+    id_contato INT AUTO_INCREMENT PRIMARY KEY,
+    FullName VARCHAR(80) NOT NULL,
+    Email VARCHAR(256) NOT NULL,
+    Phone VARCHAR(14) NOT NULL,
+    Assunto VARCHAR(50) NOT NULL,
+    Message VARCHAR(320) NOT NULL,
+    Registered VARCHAR(1) NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
