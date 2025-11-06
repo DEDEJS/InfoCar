@@ -14,7 +14,9 @@ class ValueDisplay {
     public static function showName() {
         self::show('nome');
     }
-
+    public static function ShowFullName(){
+        self::show('NomeCompleto');
+    }
     public static function showCnpj() {
         self::show('cnpj');
     }
@@ -41,6 +43,12 @@ class ValueDisplay {
 
     public static function showPhone() {
         self::show('telefone');
+    }
+    public static function ShowSubject(){
+        self::show('assunto');
+    }
+    public static function ShowMessage(){
+        self::show('mensagem');
     }
 }
 class ValidateData {
@@ -79,6 +87,16 @@ class ValidateData {
                 $this->nameValid = true;
                 $this->nameValue = $name;
                 return true;
+            }
+        }
+    }
+    public function ValidateFullName(){
+        $FullName = InputHandler::get('ShowFullName');
+        if(isset($_POST['button'])) {
+            if(strlen($FullName) <= 8 || strlen($FullName) >= 81 || !preg_match("/^[\p{L} ]+$/u", $FullName)) {
+                echo "Coloque o Seu Nome Completo";
+            }else{
+
             }
         }
     }
@@ -204,7 +222,36 @@ class ValidateData {
             }
         }
     }
+    public function ValidateSubject(){// fazer um script que ve se o utf esta pegando para nao dar erro no cliente
+        $subject = InputHandler::get('assunto');
+        $ArraySubject = array(
+         'Selecione um assunto',
+         'Dúvida sobre cadastro de veículo',
+         'Problema ao registrar manutenção',
+         'Erro no sistema / bug',
+         'Sugestão de melhoria',
+         'Solicitação de nova funcionalidade',
+         'Atualização de dados do usuário',
+         'Integração com oficinas',
+         'Parcerias ou uso comercial',
+         'Outros assuntos'
+        );
+        if(isset($_POST['button'])) {
+          if($subject == $ArraySubject[0]){
+              echo "Escolha um Assunto";
+          }
+        }
 
+    }
+    public function ValidateMesage(){
+         $message = InputHandler::get('mensagem');
+         if(isset($_POST['button'])) {
+           if(strlen($message) <= 10 || strlen($message) >= 321){
+             echo "Mínimo de 11 caracteres e máximo de 320 caracteres";
+           }     
+           
+         }
+    }
     // -------------------
     // Registration Checks
     // -------------------

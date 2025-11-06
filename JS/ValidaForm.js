@@ -24,11 +24,22 @@ function ValidaNome(){
       ErrorNome.innerHTML = "";
    }
 }
+function ValidateFullName(){
+   const FullName = document.getElementById('NomeCompleto');
+   const ErrorNome = document.getElementById('ErrorNome');
+   if(FullName.value.length <= 8 || FullName.value.length >= 80){
+     ErrorNome.innerHTML = "Nome Inválido";
+   }else{
+      ErrorNome.innerHTML = "";
+   }
+}
 function ValidaCpf(){
    const Cpf = document.getElementById('cpf');
    const ErrorCpf = document.getElementById('ErrorCpf');
    if(Cpf.value.length != 11){
-      ErrorCpf.innerHTML = "CPF Inválido";
+      ErrorCpf.innerHTML = "CPF Inválidos";
+      alert("cpf ruim");
+      return false;
    }else{
       ErrorCpf.innerHTML = "";
    }
@@ -71,6 +82,13 @@ function ValidaCadastroEmpresarial(){
       setInterval(function() {
             return ValidaNome(), ValidaCnpj(), ValidaEndereco(), ValidaNumero(), 
             ValidaTelefone(), ValidaEmail(), ValidaSenha() 
+      });
+   });
+}
+function ValidateContact(){
+   Buttin.addEventListener("click", function(){
+      setInterval(function() {
+         return ValidateFullName()
       });
    });
 }
