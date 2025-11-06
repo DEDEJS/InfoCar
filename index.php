@@ -212,7 +212,7 @@ ini_set('default_charset','UTF-8');
       <h2>Pronto para simplificar a vida do seu carro ou da sua empresa?</h2>
       <a href="#plans" class="btn-primary">Criar conta grátis</a>
     </div>
-  </section>
+  </section>Escolha seu plano
 
   <section id="faq" class="faq">
     <div class="container">

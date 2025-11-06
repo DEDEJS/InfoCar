@@ -50,9 +50,11 @@ nav a {
     justify-content: space-between;
     align-items: center;
   }
-  
+  header .btn-header{
+    display: none;
+  }
   nav ul {
-  display: none;
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 80px;

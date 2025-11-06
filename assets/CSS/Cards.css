@@ -17,7 +17,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   flex: 1 1 250px;
-  max-width: 400px;
+ width: 50%;
 }
 
 .info-hidden {
@@ -33,18 +33,17 @@
   text-decoration: none;
   margin: 0.5rem;
   display: inline-block;
-}
-
-.btn-primary {
   background-color: #0e70c0;
   color: white;
   border-radius: 6px;
+
 }
 
 .toggle-info + .info-hidden.show {
   display: block;
 }
-@media (max-width: 768px) {
+
+@media (max-width: 800px) {
   .cards, .plan-cards {
     flex-direction: column;
     align-items: center;

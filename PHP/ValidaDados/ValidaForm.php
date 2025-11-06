@@ -52,7 +52,6 @@ class ValueDisplay {
     }
 }
 class ValidateData {
-    // Flags de validação
     public $nameValid = false;
     public $cpfValid = false;
     public $cnpjValid = false;
@@ -61,6 +60,8 @@ class ValidateData {
     public $phoneValid = false;
     public $addressValid = false;
     public $addressNumberValid = false;
+    public $SubjectValid = false;
+    public $messageValid = false;
 
     // Valores sanitizados
     public $nameValue;
@@ -71,7 +72,8 @@ class ValidateData {
     public $phoneValue;
     public $addressValue;
     public $addressNumberValue;
-
+    public $Subject;
+    public $message;
     public $validated = false;
 
     // -------------------
@@ -91,12 +93,12 @@ class ValidateData {
         }
     }
     public function ValidateFullName(){
-        $FullName = InputHandler::get('ShowFullName');
+        $FullName = InputHandler::get('NomeCompleto');
         if(isset($_POST['button'])) {
             if(strlen($FullName) <= 8 || strlen($FullName) >= 81 || !preg_match("/^[\p{L} ]+$/u", $FullName)) {
                 echo "Coloque o Seu Nome Completo";
             }else{
-
+              $this->nameValid = true;
             }
         }
     }
@@ -124,7 +126,6 @@ class ValidateData {
                 echo "CNPJ Inválido";
                 return false;
             } else {
-                // cálculo dos dígitos verificadores
                 for ($t = 12; $t < 14; $t++) {
                     $d = 0;
                     for ($m = $t - 7, $i = 0; $i < $t; $i++) {
@@ -239,6 +240,14 @@ class ValidateData {
         if(isset($_POST['button'])) {
           if($subject == $ArraySubject[0]){
               echo "Escolha um Assunto";
+          }else if($subject != $ArraySubject[1] && $subject != $ArraySubject[2] &&
+                   $subject != $ArraySubject[3] && $subject != $ArraySubject[4] &&
+                   $subject != $ArraySubject[5] && $subject != $ArraySubject[6] &&
+                   $subject != $ArraySubject[7] && $subject != $ArraySubject[8] &&
+                   $subject != $ArraySubject[9]){
+             echo "Escolha um Assunto";
+          }else{
+            $this-> SubjectValid = true;
           }
         }
 
@@ -248,6 +257,8 @@ class ValidateData {
          if(isset($_POST['button'])) {
            if(strlen($message) <= 10 || strlen($message) >= 321){
              echo "Mínimo de 11 caracteres e máximo de 320 caracteres";
+           }else{
+             $this-> messageValid = true;
            }     
            
          }
@@ -255,6 +266,15 @@ class ValidateData {
     // -------------------
     // Registration Checks
     // -------------------
+    public function CheckIfContactProvided(){
+         if($this-> nameValid == true && $this->emailValid == true  && $this-> phoneValid == true &&
+           $this-> SubjectValid == true && $this-> messageValid == true ){
+            echo "ok";
+               // chamar o arquivo de insert
+         }else{
+            echo "Preenche os Campos Restantes *";
+         }
+    }
 public function checkLoginIfDataProvided() {
 
         if($this->emailValid == true  && $this->passwordValid == true) {

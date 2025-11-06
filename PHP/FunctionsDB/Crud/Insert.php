@@ -122,7 +122,27 @@ public function InsertUserFree($name, $email, $cpf, $passwordHash, $phone, $Conn
         echo "Erro ao cadastrar: " . $e->getMessage();
     }
   }
-}
+  public function InsertContact($name, $email, $phone, $subject, $message, $Connection){
+       $QueryInsertContact = $Connection-> prepare('
+         INSERT INTO contact (FullName, Email, Phone, Subject, Message, Registered)
+         VALUES (:FullName, :EmailContact, :Phone, :Subject, :Message, :Registered)
+       ');
+       $QueryInsertContact-> execute(array(
+         ':FullName' => $name,
+         ':EmailContact' => $email,
+         ':Phone' => $phone,
+         ':Subject' => $subject,
+         ':Message' => $message,
+        ':Registered' => ''// 1 para usuário cadastrado e 0 para usuário não cadastrado
+       ));
+          $Connection->commit();
+        echo "Usuário cadastrado com sucesso!";
+    } catch (Exception $e) {
+        $Connection->rollBack();
+        echo "Erro ao cadastrar: " . $e->getMessage();
+    }
+  }
+
 
 
 
