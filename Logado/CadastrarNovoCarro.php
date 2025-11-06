@@ -9,8 +9,8 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 <title>Cadastro De Carro</title>
 <meta name="viewport" content="initial-scale=1">
 <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Menu.css">
-  <link rel="stylesheet" href="../assets/CSS/Form.css">
-
+<link  type="text/css" rel="stylesheet"  href="../assets/CSS/Footer.css">
+<link rel="stylesheet" href="../assets/CSS/Form.css">
 <script type="text/javascript" src="assets/JAVASCRIPT/ValidaCadastroCarro.js"></script>
 
 </head>
@@ -42,6 +42,8 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
 </header>
 <main class="cadastro">
    <div class="container">
+      <h1>Cadastrar Novo Carro</h1>
+      <p></p>
       <form action="#" method="post"  class="form-cadastro">
       <label for="Placa">Placa <span><?php $ValidaCadastro->ValidaPlaca($Placa); ?></span></label>
       <input type="text" placeholder="Placa:" name="Placa" id="Placa">
@@ -86,6 +88,15 @@ include_once("PHP/ValidaDados/ValidaCadastro.php");
       </form>
     </div>
 </main>
-
+<footer>
+    <div class="container">
+      <p>&copy; 2025 InfoCar. Todos os direitos reservados.</p>
+      <nav>
+        <a href="#">Sobre</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
+    </div>
+</footer>
 </body>
 </html>

@@ -12,6 +12,7 @@ include_once("PHP/FunctionsDB/Crud/Select.php");
 <meta name="viewport" content="initial-scale=1">
 <link rel="stylesheet" type="text/css" href="assets/css/index.css">
 <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Menu.css">
+<link  type="text/css" rel="stylesheet"  href="../assets/CSS/Footer.css">
 <link rel="stylesheet" type="text/css" href="assets/css/tabela.css">
 <link rel="stylesheet" type="text/css" href="assets/css/Search.css">
 </head>
@@ -77,5 +78,15 @@ $SelectCar -> MostraCarroSelecionado($Conecta);
   <h1><?php  $SelectCar -> VerificaSeExisteCarroSelecionado(); ?></h1>
 </div>
 </div>
+<footer>
+    <div class="container">
+      <p>&copy; 2025 InfoCar. Todos os direitos reservados.</p>
+      <nav>
+        <a href="#">Sobre</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
+    </div>
+</footer>
 </body>
 </html>

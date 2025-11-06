@@ -12,6 +12,7 @@ include_once("PHP/Banco/Banco.php");
 <meta name="viewport" content="initial-scale=1">
 <link rel="stylesheet" type="text/css" href="assets/css/index.css">
 <link  type="text/css" rel="stylesheet"  href="../assets/CSS/Menu.css">
+<link  type="text/css" rel="stylesheet"  href="../assets/CSS/Footer.css">
 <link rel="stylesheet" type="text/css" href="assets/css/tabela.css">
 </head>
 <body>
@@ -57,5 +58,15 @@ include_once("PHP/Banco/Banco.php");
     </div>
     </div>
 </section>
+<footer>
+    <div class="container">
+      <p>&copy; 2025 InfoCar. Todos os direitos reservados.</p>
+      <nav>
+        <a href="#">Sobre</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
+    </div>
+</footer>
 </body>
 </html>
