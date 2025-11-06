@@ -9,8 +9,9 @@ include_once("PHP/ValidaDados/ValidaForm.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - InfoCar</title>
-  <link  type="text/css" rel="stylesheet" href="InfoCarUser/Assets/CSS/Menu.css">
-  <link rel="stylesheet" href="InfoCarUser/Assets/CSS/Form.css">
+  <link  type="text/css" rel="stylesheet" href="assets/CSS/Menu.css">
+  <link rel="stylesheet" href="assets/CSS/Form.css">
+    <link rel="stylesheet" href="assets/CSS/Footer.css">
   <script src="JS/Interacao.js"></script>
   <script src="JS/ValidaForm.js"></script>
 </head>
@@ -72,6 +73,14 @@ include_once("PHP/ValidaDados/ValidaForm.php");
     </div>
   </main>
 </body>
-
-
+ <footer>
+    <div class="container">
+      <p>&copy; 2025 InfoCar. Todos os direitos reservados.</p>
+      <nav>
+        <a href="#">Sobre</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
+    </div>
+  </footer>
 </html>
